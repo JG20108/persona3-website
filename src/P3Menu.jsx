@@ -5,7 +5,6 @@ const ITEMS = [
   { id: "resume",  label: "RESUME",        page: "resume",  fontSize: 66, offsetX: 20, offsetY: 8,  skew: -11, skewY: -10 },
   { id: "github",  label: "GITHUB LINK",   page: "github",  fontSize: 68, offsetX: 8, offsetY: 6,  skew: 0, skewY: -4  },
   { id: "socials", label: "SOCIALS",       page: "socials", fontSize: 74, offsetX: 16, offsetY: 8,  skew: -3,  skewY: 5   },
-  { id: "sideproj",label: "SIDE PROJECTS", page: "sideproj",fontSize: 56, offsetX: 10, offsetY: 6,  skew: -4,  skewY: 7   },
 ];
 
 const CLIP_SHAPES = [
@@ -193,7 +192,7 @@ export default function P3Menu({ onNavigate }) {
         .p3-name-tag {
           position: absolute;
           top: 18px;
-          left: 22px;
+          left: 15%;
           z-index: 20;
           font-family: 'Anton', sans-serif;
           font-style: italic;
@@ -212,12 +211,33 @@ export default function P3Menu({ onNavigate }) {
         .p3-name-tag span:first-child {
           color: rgba(0, 0, 0, 0.86);
         }
+        .p3-credit {
+          font-family: 'Anton', sans-serif;
+          font-size: 11px;
+          letter-spacing: 1px;
+          color: rgba(0, 0, 0, 0.45);
+          text-decoration: none;
+          margin-top: 3vh;
+          pointer-events: all;
+          transition: color 0.2s ease;
+        }
+        .p3-credit:hover {
+          color: rgba(0, 0, 0, 0.75);
+        }
       `}</style>
 
       <div className="p3-overlay">
         <div className="p3-name-tag">
-          <span>jade's</span>
+          <span>Jose's</span>
           <span>persona</span>
+          <a
+            className="p3-credit"
+            href="https://github.com/blairxu13/persona3-website"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            original by blairxu13
+          </a>
         </div>
         <div className="p3-stripe" />
         <div className="p3-stripe2" />
