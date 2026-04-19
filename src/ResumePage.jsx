@@ -576,6 +576,107 @@ export default function ResumePage({ src }) {
           color: rgba(148, 244, 255, 0.6);
           margin-bottom: 10px;
         }
+
+        /* ── P3R-style guide bar ── */
+        @keyframes resume-guide-in {
+          from { opacity: 0; transform: translateY(12px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        .resume-guide {
+          position: fixed;
+          bottom: 0;
+          right: 0;
+          z-index: 50;
+          display: flex;
+          align-items: stretch;
+          background: rgba(6, 10, 22, 0.92);
+          border-top: 2px solid #00b4ff;
+          padding: 0;
+          opacity: 0;
+          pointer-events: none;
+          clip-path: polygon(12px 0%, 100% 0%, 100% 100%, 0% 100%);
+        }
+        .resume-guide.mounted {
+          animation: resume-guide-in 0.45s cubic-bezier(0.22,1,0.36,1) 0.6s both;
+        }
+        .resume-guide-label {
+          display: flex;
+          align-items: center;
+          padding: 0 14px 0 20px;
+          font-family: 'Bebas Neue', sans-serif;
+          font-size: 11px;
+          letter-spacing: 3px;
+          color: rgba(0, 180, 255, 0.7);
+          border-right: 1px solid rgba(0, 180, 255, 0.18);
+        }
+        .resume-guide-actions {
+          display: flex;
+          align-items: center;
+        }
+        .resume-guide-action {
+          display: flex;
+          align-items: center;
+          gap: 7px;
+          padding: 10px 16px;
+          border-right: 1px solid rgba(255,255,255,0.06);
+        }
+        .resume-guide-action:last-child { border-right: none; }
+        .resume-guide-badge {
+          width: 26px;
+          height: 26px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-family: 'Bebas Neue', sans-serif;
+          font-size: 13px;
+          font-weight: 700;
+          letter-spacing: 0;
+          flex-shrink: 0;
+          line-height: 1;
+        }
+        .resume-guide-badge--nav {
+          background: rgba(0, 180, 255, 0.18);
+          border: 2px solid rgba(0, 180, 255, 0.6);
+          color: #00b4ff;
+          border-radius: 6px;
+          width: auto;
+          padding: 0 6px;
+          height: 24px;
+          font-size: 12px;
+        }
+        .resume-guide-badge--confirm {
+          background: #2a7a2a;
+          border: 2px solid #5bc85b;
+          color: #a8ffa8;
+        }
+        .resume-guide-badge--lr {
+          background: rgba(0, 180, 255, 0.18);
+          border: 2px solid rgba(0, 180, 255, 0.6);
+          color: #00b4ff;
+          border-radius: 6px;
+          width: auto;
+          padding: 0 6px;
+          height: 24px;
+          font-size: 12px;
+        }
+        .resume-guide-badge--back {
+          background: #7a1a1a;
+          border: 2px solid #e03d31;
+          color: #ffaaaa;
+          border-radius: 6px;
+          width: auto;
+          padding: 0 6px;
+          height: 24px;
+          font-size: 11px;
+        }
+        .resume-guide-action-text {
+          font-family: 'Bebas Neue', sans-serif;
+          font-size: 14px;
+          letter-spacing: 2px;
+          color: rgba(255, 255, 255, 0.65);
+          line-height: 1;
+        }
       `}</style>
 
       <div className="resume-overlay">
@@ -746,6 +847,28 @@ export default function ResumePage({ src }) {
           </div>
         )}
 
+      </div>
+
+      <div className={`resume-guide${mounted ? " mounted" : ""}`}>
+        <div className="resume-guide-label">GUIDE</div>
+        <div className="resume-guide-actions">
+          <div className="resume-guide-action">
+            <span className="resume-guide-badge resume-guide-badge--lr">←→</span>
+            <span className="resume-guide-action-text">SECTION</span>
+          </div>
+          <div className="resume-guide-action">
+            <span className="resume-guide-badge resume-guide-badge--nav">↑↓</span>
+            <span className="resume-guide-action-text">SELECT</span>
+          </div>
+          <div className="resume-guide-action">
+            <span className="resume-guide-badge resume-guide-badge--confirm">↵</span>
+            <span className="resume-guide-action-text">EXPAND</span>
+          </div>
+          <div className="resume-guide-action">
+            <span className="resume-guide-badge resume-guide-badge--back">ESC</span>
+            <span className="resume-guide-action-text">BACK</span>
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -172,26 +172,97 @@ export default function P3Menu({ onNavigate }) {
         }
         .p3-row.active .p3-label-bright { opacity: 1; }
 
-        .p3-hint {
-          position: absolute;
-          bottom: 24px; right: 28px;
-          z-index: 20;
-          display: flex; flex-direction: column;
-          align-items: flex-end; gap: 5px;
-          font-family: 'Anton', sans-serif;
+        /* ── P3R-style guide bar ── */
+        @keyframes p3-guide-in {
+          from { opacity: 0; transform: translateY(12px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        .p3-guide {
+          position: fixed;
+          bottom: 0;
+          right: 0;
+          z-index: 50;
+          display: flex;
+          align-items: stretch;
+          background: rgba(6, 10, 22, 0.92);
+          border-top: 2px solid #00b4ff;
+          padding: 0;
           opacity: 0;
-          transition: opacity 0.5s ease 0.9s;
+          pointer-events: none;
+          clip-path: polygon(12px 0%, 100% 0%, 100% 100%, 0% 100%);
         }
-        .p3-hint.mounted { opacity: 1; }
-        .p3-hint-row {
-          display: flex; align-items: center; gap: 8px;
-          font-size: 13px; letter-spacing: 2px;
-          color: rgba(255,255,255,0.28);
+        .p3-guide.mounted {
+          animation: p3-guide-in 0.45s cubic-bezier(0.22,1,0.36,1) 1s both;
         }
-        .p3-hint-key {
-          border: 1px solid rgba(255,255,255,0.2);
-          border-radius: 3px;
-          padding: 1px 6px; font-size: 11px;
+        .p3-guide-label {
+          display: flex;
+          align-items: center;
+          padding: 0 14px 0 20px;
+          font-family: 'Bebas Neue', sans-serif;
+          font-size: 11px;
+          letter-spacing: 3px;
+          color: rgba(0, 180, 255, 0.7);
+          border-right: 1px solid rgba(0, 180, 255, 0.18);
+        }
+        .p3-guide-actions {
+          display: flex;
+          align-items: center;
+          gap: 0;
+          padding: 0 18px 0 0;
+        }
+        .p3-guide-action {
+          display: flex;
+          align-items: center;
+          gap: 7px;
+          padding: 10px 16px;
+          border-right: 1px solid rgba(255,255,255,0.06);
+        }
+        .p3-guide-action:last-child { border-right: none; }
+        .p3-guide-badge {
+          width: 26px;
+          height: 26px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-family: 'Bebas Neue', sans-serif;
+          font-size: 13px;
+          font-weight: 700;
+          letter-spacing: 0;
+          flex-shrink: 0;
+          line-height: 1;
+        }
+        .p3-guide-badge--nav {
+          background: rgba(0, 180, 255, 0.18);
+          border: 2px solid rgba(0, 180, 255, 0.6);
+          color: #00b4ff;
+          border-radius: 6px;
+          width: auto;
+          padding: 0 6px;
+          height: 24px;
+          font-size: 12px;
+        }
+        .p3-guide-badge--confirm {
+          background: #2a7a2a;
+          border: 2px solid #5bc85b;
+          color: #a8ffa8;
+        }
+        .p3-guide-badge--back {
+          background: #7a1a1a;
+          border: 2px solid #e03d31;
+          color: #ffaaaa;
+          border-radius: 6px;
+          width: auto;
+          padding: 0 6px;
+          height: 24px;
+          font-size: 11px;
+        }
+        .p3-guide-action-text {
+          font-family: 'Bebas Neue', sans-serif;
+          font-size: 14px;
+          letter-spacing: 2px;
+          color: rgba(255, 255, 255, 0.65);
+          line-height: 1;
         }
 
         .p3-name-tag {
@@ -317,9 +388,18 @@ export default function P3Menu({ onNavigate }) {
           })}
         </nav>
 
-        <div className={`p3-hint ${mounted ? "mounted" : ""}`}>
-          <div className="p3-hint-row"><span className="p3-hint-key">↑↓</span><span>NAVIGATE</span></div>
-          <div className="p3-hint-row"><span className="p3-hint-key">↵</span><span>CONFIRM</span></div>
+        <div className={`p3-guide ${mounted ? "mounted" : ""}`}>
+          <div className="p3-guide-label">GUIDE</div>
+          <div className="p3-guide-actions">
+            <div className="p3-guide-action">
+              <span className="p3-guide-badge p3-guide-badge--nav">↑↓</span>
+              <span className="p3-guide-action-text">NAVIGATE</span>
+            </div>
+            <div className="p3-guide-action">
+              <span className="p3-guide-badge p3-guide-badge--confirm">↵</span>
+              <span className="p3-guide-action-text">OPEN</span>
+            </div>
+          </div>
         </div>
       </div>
     </>

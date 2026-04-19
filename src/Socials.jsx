@@ -539,26 +539,95 @@ export default function Socials() {
         }
 
         /* footer hints */
+        /* ── P3R-style guide bar ── */
+        @keyframes sc-soc-guide-in {
+          from { opacity: 0; transform: translateY(12px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
         .sc-footer {
           position: fixed;
-          bottom: 20px; right: 28px;
-          display: flex; flex-direction: column;
-          align-items: flex-end; gap: 5px;
-          font-family: 'Bebas Neue', sans-serif;
+          bottom: 0;
+          right: 0;
           z-index: 50;
+          display: flex;
+          align-items: stretch;
+          background: rgba(6, 10, 22, 0.92);
+          border-top: 2px solid #00b4ff;
+          padding: 0;
           opacity: 0;
-          transition: opacity 0.4s ease 0.6s;
+          pointer-events: none;
+          clip-path: polygon(12px 0%, 100% 0%, 100% 100%, 0% 100%);
         }
-        .sc-footer.mounted { opacity: 1; }
-        .sc-footer-row {
-          display: flex; align-items: center; gap: 8px;
-          font-size: 13px; letter-spacing: 2px;
-          color: rgba(255,255,255,0.22);
+        .sc-footer.mounted {
+          animation: sc-soc-guide-in 0.45s cubic-bezier(0.22,1,0.36,1) 0.6s both;
         }
-        .sc-footer-key {
-          border: 1px solid rgba(255,255,255,0.15);
-          border-radius: 3px;
-          padding: 1px 6px; font-size: 11px;
+        .sc-footer-label {
+          display: flex;
+          align-items: center;
+          padding: 0 14px 0 20px;
+          font-family: 'Bebas Neue', sans-serif;
+          font-size: 11px;
+          letter-spacing: 3px;
+          color: rgba(0, 180, 255, 0.7);
+          border-right: 1px solid rgba(0, 180, 255, 0.18);
+        }
+        .sc-footer-actions {
+          display: flex;
+          align-items: center;
+        }
+        .sc-footer-action {
+          display: flex;
+          align-items: center;
+          gap: 7px;
+          padding: 10px 16px;
+          border-right: 1px solid rgba(255,255,255,0.06);
+        }
+        .sc-footer-action:last-child { border-right: none; }
+        .sc-footer-badge {
+          width: 26px;
+          height: 26px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-family: 'Bebas Neue', sans-serif;
+          font-size: 13px;
+          font-weight: 700;
+          letter-spacing: 0;
+          flex-shrink: 0;
+          line-height: 1;
+        }
+        .sc-footer-badge--nav {
+          background: rgba(0, 180, 255, 0.18);
+          border: 2px solid rgba(0, 180, 255, 0.6);
+          color: #00b4ff;
+          border-radius: 6px;
+          width: auto;
+          padding: 0 6px;
+          height: 24px;
+          font-size: 12px;
+        }
+        .sc-footer-badge--confirm {
+          background: #2a7a2a;
+          border: 2px solid #5bc85b;
+          color: #a8ffa8;
+        }
+        .sc-footer-badge--back {
+          background: #7a1a1a;
+          border: 2px solid #e03d31;
+          color: #ffaaaa;
+          border-radius: 6px;
+          width: auto;
+          padding: 0 6px;
+          height: 24px;
+          font-size: 11px;
+        }
+        .sc-footer-action-text {
+          font-family: 'Bebas Neue', sans-serif;
+          font-size: 14px;
+          letter-spacing: 2px;
+          color: rgba(255, 255, 255, 0.65);
+          line-height: 1;
         }
       `}</style>
 
@@ -648,17 +717,20 @@ export default function Socials() {
         ))}
 
       <div className={`sc-footer${mounted ? ' mounted' : ''}`}>
-        <div className="sc-footer-row">
-          <span className="sc-footer-key">↑↓</span>
-          <span>SELECT</span>
-        </div>
-        <div className="sc-footer-row">
-          <span className="sc-footer-key">↵</span>
-          <span>OPEN</span>
-        </div>
-        <div className="sc-footer-row">
-          <span className="sc-footer-key">ESC</span>
-          <span>BACK</span>
+        <div className="sc-footer-label">GUIDE</div>
+        <div className="sc-footer-actions">
+          <div className="sc-footer-action">
+            <span className="sc-footer-badge sc-footer-badge--nav">↑↓</span>
+            <span className="sc-footer-action-text">SELECT</span>
+          </div>
+          <div className="sc-footer-action">
+            <span className="sc-footer-badge sc-footer-badge--confirm">↵</span>
+            <span className="sc-footer-action-text">OPEN</span>
+          </div>
+          <div className="sc-footer-action">
+            <span className="sc-footer-badge sc-footer-badge--back">ESC</span>
+            <span className="sc-footer-action-text">BACK</span>
+          </div>
         </div>
       </div>
     </div>

@@ -85,8 +85,8 @@ function SocialsTransition() {
         transformOrigin: "top",
         pointerEvents: "none",
       }}
-      initial={{ y: -1200, opacity: 1 }}
-      animate={{ y: [-1200, 0, 0, 1200] }}
+      initial={{ y: "-150vh", opacity: 1 }}
+      animate={{ y: ["-150vh", 0, 0, "150vh"] }}
       transition={{
         duration: 0.56,
         delay: stripe.delay,
@@ -127,8 +127,8 @@ function ResumeTransition() {
         boxShadow: card.color === "#ffffff" ? "10px 0 0 #d63232" : "none",
         pointerEvents: "none",
       }}
-      initial={{ x: -900, opacity: 1 }}
-      animate={{ x: [-900, 30, 0, 900] }}
+      initial={{ x: "-120vw", opacity: 1 }}
+      animate={{ x: ["-120vw", "2vw", 0, "120vw"] }}
       transition={{
         duration: 0.6,
         delay: card.delay,
