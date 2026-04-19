@@ -4,7 +4,6 @@ import char1 from '@assets/char1.png';
 import char2 from '@assets/char2.png';
 import char3 from '@assets/char3.png';
 import bgVideo from '@assets/main1.mp4';
-import newsign from '@assets/newsign.png';
 import icon1 from '@assets/icon1.png';
 import icon2 from '@assets/icon2.png';
 import icon3 from '@assets/icon3.png';
@@ -34,65 +33,48 @@ const ROLES = [
 
 const ITEMS = [
   {
-    id: 'twitch',
-    label: 'TWITCH',
-    handle: '@yourname',
-    href: 'https://twitch.tv/yourname',
-    icon: '🎮',
+    id: 'github',
+    label: 'GITHUB',
+    href: 'https://github.com/JG20108',
+    icon: 'GH',
     barIcon: icon1,
     bars: 1,
-    newBars: [0],
-    counts: ['56'],
-    links: ['twitch.tv/videos/2041837265'],
+    newBars: [],
+    displays: ['github.com/JG20108'],
+    links: ['https://github.com/JG20108'],
     stats: [
-      { tag: 'FOL', value: '1.2K', color: '#9147ff' },
-      { tag: 'VWR', value: '042', color: '#bf94ff' },
+      { tag: 'REP', value: '11', color: '#6e5494' },
+      { tag: 'FOL', value: '12', color: '#4078c0' },
     ],
   },
   {
-    id: 'instagram',
-    label: 'INSTAGRAM',
-    handle: '@yourhandle',
-    href: 'https://instagram.com/yourhandle',
-    icon: '📷',
+    id: 'linkedin',
+    label: 'LINKEDIN',
+    href: 'https://www.linkedin.com/in/jos%C3%A9-guill%C3%A9n/',
+    icon: 'IN',
     barIcon: icon2,
-    bars: 5,
-    newBars: [1, 2],
-    counts: ['3.4M', '2.5M', '676K', '412K', '198K'],
-    links: [
-      'instagram.com/p/C4xQmRrNk2a',
-      'instagram.com/p/C3wLpBsOj7f',
-      'instagram.com/reel/C2vKoArMi6e',
-      'instagram.com/p/C1uJnZqLh5d',
-      'instagram.com/reel/C0tImYpKg4c',
-    ],
+    bars: 1,
+    newBars: [],
+    displays: ['linkedin.com/in/josé-guillén'],
+    links: ['https://www.linkedin.com/in/jos%C3%A9-guill%C3%A9n/'],
     stats: [
-      { tag: 'FOL', value: '3.4K', color: '#e1306c' },
-      { tag: 'PST', value: '128', color: '#f77737' },
+      { tag: 'NET', value: '500+', color: '#0077b5' },
+      { tag: 'EXP', value: '3YR', color: '#00a0dc' },
     ],
   },
   {
-    id: 'tiktok',
-    label: 'TIKTOK',
-    handle: '@yourhandle',
-    href: 'https://tiktok.com/@yourhandle',
-    icon: '🎵',
+    id: 'email',
+    label: 'EMAIL',
+    href: 'mailto:joseosgui@hotmail.com',
+    icon: '@',
     barIcon: icon3,
-    bars: 7,
-    newBars: [0, 3, 5, 6],
-    counts: ['5.1M', '3.7M', '2.2M', '1.4M', '831K', '490K', '217K'],
-    links: [
-      'tiktok.com/@yourhandle/video/7318492016374859054',
-      'tiktok.com/@yourhandle/video/7305837261940183342',
-      'tiktok.com/@yourhandle/video/7291046385720348974',
-      'tiktok.com/@yourhandle/video/7278392047163820334',
-      'tiktok.com/@yourhandle/video/7264819203847165742',
-      'tiktok.com/@yourhandle/video/7251047382916430126',
-      'tiktok.com/@yourhandle/video/7237294018463851822',
-    ],
+    bars: 1,
+    newBars: [],
+    displays: ['joseosgui@hotmail.com'],
+    links: ['mailto:joseosgui@hotmail.com'],
     stats: [
-      { tag: 'FOL', value: '8.9K', color: '#00f2ea' },
-      { tag: 'LKS', value: '52K', color: '#ff0050' },
+      { tag: 'MSG', value: 'OPEN', color: '#00b4ff' },
+      { tag: 'RSP', value: 'FAST', color: '#4dc8ff' },
     ],
   },
 ];
@@ -127,10 +109,7 @@ export default function Socials() {
           setActiveInfoBar((i) => Math.min(barCount - 1, i + 1));
         if (e.key === 'ArrowLeft') setFocus('left');
         if (e.key === 'Enter')
-          window.open(
-            'https://' + ITEMS[active].links[activeInfoBar],
-            '_blank',
-          );
+          window.open(ITEMS[active].links[activeInfoBar], '_blank');
       }
       if (
         (e.key === 'ArrowLeft' && focus === 'left') ||
@@ -141,7 +120,7 @@ export default function Socials() {
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [active, navigate, focus]);
+  }, [active, activeInfoBar, navigate, focus]);
 
   return (
     <div id="menu-screen">
@@ -651,12 +630,9 @@ export default function Socials() {
             className={`sc-info-bar-wrap${activeInfoBar === i ? ' selected' : ''}`}
             key={`bar-${active}-${i}`}
             style={{ top: `${155 + i * 52}px`, animationDelay: `${i * 50}ms` }}
-            onClick={() => setActiveInfoBar(i)}
+            onClick={() => { setActiveInfoBar(i); window.open(ITEMS[active].links[i], '_blank'); }}
             onMouseEnter={() => setActiveInfoBar(i)}
           >
-            {ITEMS[active].newBars.includes(i) && (
-              <img className="sc-info-bar-new" src={newsign} alt="" />
-            )}
             <div className="sc-info-bar">
               <img
                 className="sc-info-bar-icon"
@@ -664,12 +640,9 @@ export default function Socials() {
                 alt=""
               />
               <span className="sc-info-bar-text">
-                {ITEMS[active].links[i].slice(0, 10)}...
+                {ITEMS[active].displays[i]}
               </span>
-              <span className="sc-info-bar-box">VIEWS</span>
-              <span className="sc-info-bar-count">
-                {ITEMS[active].counts[i]}
-              </span>
+              <span className="sc-info-bar-box">OPEN</span>
             </div>
           </div>
         ))}
