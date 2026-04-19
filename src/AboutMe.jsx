@@ -102,9 +102,9 @@ const ITEMS = [
 ];
 
 export default function AboutMe() {
-  const [active, setActive]       = useState(0);
-  const [mounted, setMounted]     = useState(false);
-  const [revealed, setRevealed]   = useState(false);
+  const [active, setActive]           = useState(0);
+  const [mounted, setMounted]         = useState(false);
+  const [revealed, setRevealed]       = useState(false);
   const [expandedAward, setExpandedAward] = useState(null);
   const navigate = useNavigate();
 
@@ -151,14 +151,30 @@ export default function AboutMe() {
           )}
           {REVEAL_CONTENT[active].type === "skills" && (
             <div className="sc-reveal-skills">
-              {REVEAL_CONTENT[active].skills.map((skill) => (
-                <div className="sc-skill-entry" key={skill.title}>
-                  <div className="sc-skill-title">{skill.title}</div>
-                  {skill.lines.map((line) => (
-                    <div className="sc-skill-desc" key={line}>{line}</div>
-                  ))}
-                </div>
-              ))}
+              <div className="sc-skills-track">
+                {REVEAL_CONTENT[active].skills.map((skill) => (
+                  <>
+                    <div className="sc-cinta-spacer" key={`spacer-${skill.title}`} />
+                    <div className="sc-skill-entry" key={skill.title}>
+                      <div className="sc-skill-title">{skill.title}</div>
+                      {skill.lines.map((line) => (
+                        <div className="sc-skill-desc" key={line}>{line}</div>
+                      ))}
+                    </div>
+                  </>
+                ))}
+                {REVEAL_CONTENT[active].skills.map((skill) => (
+                  <>
+                    <div className="sc-cinta-spacer" key={`spacer-${skill.title}-dup`} aria-hidden="true" />
+                    <div className="sc-skill-entry" key={`${skill.title}-dup`} aria-hidden="true">
+                      <div className="sc-skill-title">{skill.title}</div>
+                      {skill.lines.map((line) => (
+                        <div className="sc-skill-desc" key={line}>{line}</div>
+                      ))}
+                    </div>
+                  </>
+                ))}
+              </div>
             </div>
           )}
           {REVEAL_CONTENT[active].type === "recognition" && (
@@ -206,7 +222,7 @@ export default function AboutMe() {
         </div>
       )}
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,400;0,700;1,700&family=Montserrat:wght@300&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
 
         .sc-root {
           position: absolute;
@@ -354,7 +370,8 @@ export default function AboutMe() {
           text-align: center;
         }
         .sc-reveal-upper-line {
-          font-family: 'Montserrat', sans-serif;
+          font-family: 'Barlow Condensed', sans-serif;
+          font-style: italic;
           font-weight: 300;
           font-size: 26px;
           letter-spacing: 0.5px;
@@ -373,7 +390,8 @@ export default function AboutMe() {
           align-items: center;
           justify-content: flex-start;
           color: #fff;
-          font-family: 'Montserrat', sans-serif;
+          font-family: 'Barlow Condensed', sans-serif;
+          font-style: italic;
           font-weight: 300;
           font-size: 22px;
           letter-spacing: 0.4px;
@@ -686,6 +704,11 @@ export default function AboutMe() {
           padding: 1px 6px; font-size: 11px;
         }
 
+        @keyframes sc-cinta {
+          from { transform: translateX(-50%); }
+          to   { transform: translateX(0%); }
+        }
+
         /* ── Skills panel (Experience bar) ── */
         .sc-reveal-skills {
           position: absolute;
@@ -697,31 +720,46 @@ export default function AboutMe() {
           clip-path: polygon(0 0, 100% 0, calc(100% - 22px) 100%, 0 100%);
           box-shadow: 0 0 0 1px rgba(255,255,255,0.06);
           display: flex;
-          flex-direction: column;
           align-items: center;
-          justify-content: center;
-          gap: 22px;
+          overflow: hidden;
           color: #fff;
           text-align: center;
+        }
+        .sc-cinta-spacer {
+          width: 8vw;
+          flex-shrink: 0;
+        }
+        .sc-skills-track {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          gap: 0;
+          width: max-content;
+          animation: sc-cinta 31s linear infinite;
         }
         .sc-skill-entry {
           display: flex;
           flex-direction: column;
           align-items: center;
-          gap: 4px;
+          gap: 10px;
+          flex-shrink: 0;
+          width: 32vw;
+          padding: 0 4vw;
         }
         .sc-skill-title {
-          font-family: 'Montserrat', sans-serif;
+          font-family: 'Barlow Condensed', sans-serif;
+          font-style: italic;
           font-weight: 700;
-          font-size: 22px;
+          font-size: 45px;
           letter-spacing: 0.5px;
           line-height: 1.15;
           color: #e03d31;
         }
         .sc-skill-desc {
-          font-family: 'Montserrat', sans-serif;
+          font-family: 'Barlow Condensed', sans-serif;
+          font-style: italic;
           font-weight: 300;
-          font-size: 17px;
+          font-size: 30px;
           letter-spacing: 0.5px;
           line-height: 1.15;
           color: rgba(255, 255, 255, 0.85);
@@ -770,7 +808,8 @@ export default function AboutMe() {
           box-shadow: 0 4px 20px rgba(196, 0, 26, 0.5);
         }
         .sc-award-caption {
-          font-family: 'Montserrat', sans-serif;
+          font-family: 'Barlow Condensed', sans-serif;
+          font-style: italic;
           font-weight: 300;
           font-size: 14px;
           letter-spacing: 0.5px;
@@ -807,7 +846,8 @@ export default function AboutMe() {
           box-shadow: 0 8px 48px rgba(0,0,0,0.7);
         }
         .sc-award-modal-caption {
-          font-family: 'Montserrat', sans-serif;
+          font-family: 'Barlow Condensed', sans-serif;
+          font-style: italic;
           font-weight: 300;
           font-size: 20px;
           letter-spacing: 0.5px;
