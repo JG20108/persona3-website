@@ -14,13 +14,19 @@ const EXPERIENCE_ROWS = [
     position: "Tech Lead & Senior Developer",
     period: "2024-NOW",
     highlights: [
-      "Led end-to-end SDLC using DDD, Clean Architecture & BDD",
-      "Established dev standards & mentored team members",
-      "Reduced tech debt via SonarCloud, Husky, ESLint & Copilot Reviews",
-      "Conducted 1:1s for professional growth & career alignment",
-      "Modernized legacy applications including Open Dental",
+      "Led the end-to-end software development life cycle, from requirement gathering to production deployment",
+      "Established development practices and standards for Web Front-End projects",
+      "Defined architectures and created scaffolding templates to standardize development and accelerate delivery times",
+      "Strengthened testing policies and technical documentation to ensure product stability and reliability",
+      "Reduced technical debt by integrating analysis and automation tools such as SonarCloud, Husky, ESLint, and Copilot Reviews",
+      "Implemented Pull Request templates, Dependabot, and commit standards to improve codebase health and collaboration",
+      "Resolved operational blockers and implemented best practices to optimize team performance",
+      "Created technical guides and streamlined workflows to accelerate the onboarding process for new developers",
+      "Conducted 1:1 sessions focused on professional development and aligning developer career paths with organizational goals",
+      "Worked on bringing modernity to software systems like Open Dental, modernizing legacy applications",
+      "Developed software for both desktop via dockerization and also web apps",
     ],
-    tech: ["NextJS", "NestJS", "Postgres", "AWS", "Docker", "Auth0", "Jest"],
+    tech: ["NextJS", "NestJS", "Postgres", "AWS", "Docker", "Auth0", "Javascript", "Jest"],
   },
   {
     index: "02",
@@ -28,11 +34,12 @@ const EXPERIENCE_ROWS = [
     position: "Developer",
     period: "AUG-OCT 24",
     highlights: [
-      "Developed desktop CMS and mobile educational platform",
-      "Designed & managed Postgres database architecture",
-      "Tracked bugs & features using Jira & Trello",
+      "Collaborated with Real Formation Program and their requirements",
+      "Developed software for both desktop (CMS) and mobile classroom and educational platform",
+      "Managed Database Architecture: Designed and managed the database architecture in Postgres, ensuring data integrity, scalability, and efficient querying for large datasets",
+      "Bug Tracking and Resolution: Utilized tools like Jira and Trello for tracking bugs and feature requests, ensuring timely resolution and consistent progress towards project milestones",
     ],
-    tech: ["React Vite", "Redux", "Postgres", "AWS", "Ruby on Rails"],
+    tech: ["React Vite", "Redux", "Postgres", "AWS", "Ruby on Rails", "Devise Authentication"],
   },
   {
     index: "03",
@@ -40,12 +47,13 @@ const EXPERIENCE_ROWS = [
     position: "Developer",
     period: "2023-24",
     highlights: [
-      "Full SDLC on Neil Young Archives & Real Formation",
-      "Modernized legacy codebases to current standards",
-      "Developed for both desktop and mobile platforms",
-      "Documented technical workflows for team onboarding",
+      "Collaborated across the systems development lifecycle, from requirements gathering to production releases",
+      "Developed software for both desktop and mobile platforms",
+      "Addressed team concerns, resolving issues, and implementing best practices",
+      "Modernized legacy code bases, enhancing functionality and adherence to modern standards",
+      "Documented technical workflows to facilitate onboarding of new team members",
     ],
-    tech: ["React JS", "Redux", "MongoDB", "Swift", "Kotlin", "AWS", "Rails", "NestJS"],
+    tech: ["React JS", "Redux", "MongoDB", "Auth0", "Stripe", "Postgres", "Devise auth", "Swift", "Kotlin", "SQLite", "AWS", "Ruby on Rails", "Nest JS"],
   },
   {
     index: "04",
@@ -53,21 +61,23 @@ const EXPERIENCE_ROWS = [
     position: "Software Engineering Intern",
     period: "2022-23",
     highlights: [
-      "Learned engineering best practices & wrote clean code",
-      "Collaborated to identify and resolve software bugs",
+      "Learned software engineering best practices and wrote clean code",
+      "Collaborated with developers to identify and fix software bugs",
       "Contributed to successful project deployments",
+      "Stayed updated on emerging technology trends",
     ],
     tech: ["React JS", "Redux", "MongoDB", "Auth0", "Stripe"],
   },
   {
     index: "05",
-    company: "BUFETE GUILLEN",
-    position: "Freelance Developer",
+    company: "BUFETE GUILLEN & ASOCIADOS",
+    position: "Independent Freelance Developer",
     period: "2022",
     highlights: [
-      "Built comprehensive website in collaboration with Tenloo",
-      "Conducted needs analysis to tailor website features",
-      "Ensured responsiveness and cross-device compatibility",
+      "Identified and implemented technological solutions to enhance the firm's online presence and operational efficiency",
+      "Conducted needs analysis with the firm to tailor website features, including dynamic contact forms and appointment scheduling",
+      "Ensured responsiveness across devices for optimal user experience",
+      "Contributed to the firm's technological infrastructure, improving service delivery and client engagement",
     ],
     tech: ["TypeScript", "JavaScript", "HTML", "CSS"],
   },
@@ -86,26 +96,38 @@ const EDUCATION_ROWS = [
   {
     index: "01",
     title: "B.Sc. Computer Science Engineering",
-    institution: "Universidad Católica De Honduras",
-    location: "Tegucigalpa, Honduras",
+    institution: "Universidad Católica De Honduras (Catholic University of Honduras)",
+    location: "Tegucigalpa, FM — Honduras",
     status: "COMPLETE",
-    detail: "Core curriculum covering software engineering, data structures, algorithms, databases, and systems design.",
+    bullets: [
+      "Bachelor of Science in Computer Science Engineering",
+      "Core curriculum: software engineering, data structures, algorithms, databases, and systems design",
+      "Graduated from one of Honduras's leading private universities with a STEM focus",
+    ],
   },
   {
     index: "02",
     title: "Computer Engineering — Abroad Studies",
     institution: "Minnesota State University Mankato",
-    location: "Mankato, Minnesota, USA",
+    location: "Mankato, Minnesota — United States",
     status: "COMPLETE",
-    detail: "International academic exchange with focus on Computer Engineering and advanced software systems.",
+    bullets: [
+      "Bachelor of Computer Engineering (BSEC) — international academic exchange programme",
+      "Immersive US college experience with a focus on advanced software and engineering systems",
+      "Broadened technical perspective through exposure to US academic standards and multicultural environment",
+    ],
   },
   {
     index: "03",
-    title: "AFS Cultural & Academic Exchange",
+    title: "AFS Cultural & Academic Exchange Year",
     institution: "Istituto Omnicomprensivo Leonardo Da Vinci",
-    location: "Acquapendente, Viterbo, Italy",
+    location: "Acquapendente, Viterbo — Italy",
     status: "COMPLETE",
-    detail: "Year-long immersive cultural and academic programme, building cross-cultural communication and adaptability.",
+    bullets: [
+      "Full academic year abroad in Acquapendente, Viterbo, Italy through the AFS exchange programme",
+      "Developed fluency in Italian and deep cross-cultural communication skills",
+      "Built adaptability, resilience, and global perspective — core traits carried into a tech leadership role",
+    ],
   },
 ];
 
@@ -408,13 +430,34 @@ export default function ResumePage({ src }) {
           line-height: 1;
         }
 
+        .resume-detail-hint {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          margin-top: 12px;
+          margin-bottom: 2px;
+          padding: 0 4px;
+          opacity: 0.55;
+        }
+        .resume-detail-hint-line {
+          flex: 1;
+          height: 1px;
+          background: rgba(140, 239, 255, 0.3);
+        }
+        .resume-detail-hint-text {
+          font-family: 'Bebas Neue', sans-serif;
+          font-size: 12px;
+          letter-spacing: 2px;
+          color: #8df6ff;
+          white-space: nowrap;
+        }
         .resume-detail-list {
           position: relative;
           display: flex;
           flex-direction: column;
           gap: 7px;
-          margin-top: 14px;
-          overflow-y: auto;
+          overflow-x: hidden;
+          overflow-y: visible;
           flex-shrink: 0;
         }
         .resume-detail-row {
@@ -489,6 +532,8 @@ export default function ResumePage({ src }) {
           clip-path: polygon(0 0, 100% 0, calc(100% - 16px) 100%, 0 100%);
           box-shadow: inset 0 0 0 1px rgba(145, 239, 255, 0.12);
           flex: 1;
+          overflow-y: auto;
+          overflow-x: hidden;
         }
         .resume-detail-bottom-title {
           font-family: 'Bebas Neue', sans-serif;
@@ -572,6 +617,12 @@ export default function ResumePage({ src }) {
               <div className="resume-detail-top-progress">{EXPERIENCE_ROWS.length} ROLES</div>
             </div>
 
+            <div className="resume-detail-hint">
+              <div className="resume-detail-hint-line" />
+              <div className="resume-detail-hint-text">↑ HOVER ROW TO EXPLORE ↓</div>
+              <div className="resume-detail-hint-line" />
+            </div>
+
             <div className="resume-detail-list">
               {EXPERIENCE_ROWS.map((row, i) => (
                 <div
@@ -615,6 +666,12 @@ export default function ResumePage({ src }) {
               <div className="resume-detail-top-progress">6 AREAS</div>
             </div>
 
+            <div className="resume-detail-hint">
+              <div className="resume-detail-hint-line" />
+              <div className="resume-detail-hint-text">↑ HOVER ROW TO EXPLORE ↓</div>
+              <div className="resume-detail-hint-line" />
+            </div>
+
             <div className="resume-detail-list">
               {SKILL_ROWS.map((row, i) => (
                 <div
@@ -653,6 +710,12 @@ export default function ResumePage({ src }) {
               <div className="resume-detail-top-progress">{EDUCATION_ROWS.length} INST</div>
             </div>
 
+            <div className="resume-detail-hint">
+              <div className="resume-detail-hint-line" />
+              <div className="resume-detail-hint-text">↑ HOVER ROW TO EXPLORE ↓</div>
+              <div className="resume-detail-hint-line" />
+            </div>
+
             <div className="resume-detail-list">
               {EDUCATION_ROWS.map((row, i) => (
                 <div
@@ -675,8 +738,9 @@ export default function ResumePage({ src }) {
               <div className="resume-detail-bottom-title">{eduRow.institution}</div>
               <div className="resume-detail-location">{eduRow.location}</div>
               <div className="resume-detail-bullets">
-                <div className="resume-detail-bullet">— {eduRow.title}</div>
-                <div className="resume-detail-bullet">— {eduRow.detail}</div>
+                {eduRow.bullets.map((b) => (
+                  <div className="resume-detail-bullet" key={b}>— {b}</div>
+                ))}
               </div>
             </div>
           </div>
