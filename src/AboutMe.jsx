@@ -375,7 +375,7 @@ export default function AboutMe() {
           font-family: 'Barlow Condensed', sans-serif;
           font-style: italic;
           font-weight: 300;
-          font-size: 38px;
+          font-size: clamp(16px, 1.48vw, 38px);
           letter-spacing: 0.5px;
           line-height: 1.15;
         }
@@ -396,7 +396,7 @@ export default function AboutMe() {
           font-family: 'Barlow Condensed', sans-serif;
           font-style: italic;
           font-weight: 700;
-          font-size: 42px;
+          font-size: clamp(18px, 1.64vw, 42px);
           letter-spacing: 0.4px;
           padding-left: 3vw;
         }
@@ -428,7 +428,7 @@ export default function AboutMe() {
         }
         .sc-right-nav .sc-nav-btn {
           font-family: 'Bebas Neue', sans-serif;
-          font-size: 100px;
+          font-size: clamp(48px, 3.9vw, 100px);
           letter-spacing: 3px;
           line-height: 1;
           user-select: none;
@@ -449,7 +449,7 @@ export default function AboutMe() {
         }
         .sc-right-nav .sc-nav-arrow {
           font-family: 'Bebas Neue', sans-serif;
-          font-size: 22px;
+          font-size: clamp(13px, 0.86vw, 22px);
           color: #c4001a;
           display: inline-block;
           user-select: none;
@@ -566,7 +566,7 @@ export default function AboutMe() {
           align-items: center;
           flex-shrink: 0;
           font-family: 'Anton', sans-serif;
-          font-size: 50px;
+          font-size: clamp(22px, 1.95vw, 50px);
           letter-spacing: -2px;
           color: #ffffff;
           transform: rotate(-30deg);
@@ -593,7 +593,7 @@ export default function AboutMe() {
 
         .sc-icon {
           font-family: 'Bebas Neue', sans-serif;
-          font-size: 22px;
+          font-size: clamp(13px, 0.86vw, 22px);
           width: 32px;
           text-align: center;
           flex-shrink: 0;
@@ -605,8 +605,8 @@ export default function AboutMe() {
 
         .sc-label {
           font-family: 'Bebas Neue', sans-serif;
-          font-size: 38px;
-          letter-spacing: 4px;
+          font-size: clamp(16px, 1.48vw, 38px);
+          letter-spacing: clamp(1px, 0.16vw, 4px);
           line-height: 1;
           color: rgba(255,255,255,0.85);
           transition: color 0.2s ease;
@@ -637,7 +637,7 @@ export default function AboutMe() {
 
         .sc-stat-tag {
           font-family: 'Bebas Neue', sans-serif;
-          font-size: 9px;
+          font-size: clamp(7px, 0.35vw, 9px);
           letter-spacing: 1.5px;
           padding: 1px 4px;
           border-width: 1px;
@@ -648,7 +648,7 @@ export default function AboutMe() {
 
         .sc-stat-num {
           font-family: 'Bebas Neue', sans-serif;
-          font-size: 26px;
+          font-size: clamp(13px, 1.02vw, 26px);
           font-style: italic;
           line-height: 1;
           color: #ffffff;
@@ -760,7 +760,7 @@ export default function AboutMe() {
           font-family: 'Barlow Condensed', sans-serif;
           font-style: italic;
           font-weight: 700;
-          font-size: 45px;
+          font-size: clamp(18px, 1.76vw, 45px);
           letter-spacing: 0.5px;
           line-height: 1.15;
           color: #e03d31;
@@ -769,7 +769,7 @@ export default function AboutMe() {
           font-family: 'Barlow Condensed', sans-serif;
           font-style: italic;
           font-weight: 300;
-          font-size: 30px;
+          font-size: clamp(14px, 1.17vw, 30px);
           letter-spacing: 0.5px;
           line-height: 1.15;
           color: rgba(255, 255, 255, 0.85);
@@ -806,7 +806,7 @@ export default function AboutMe() {
           transform: scale(1.04);
         }
         .sc-award-img {
-          height: 200px;
+          height: clamp(80px, 14vw, 200px);
           width: auto;
           max-width: 260px;
           object-fit: contain;
@@ -821,7 +821,7 @@ export default function AboutMe() {
           font-family: 'Barlow Condensed', sans-serif;
           font-style: italic;
           font-weight: 300;
-          font-size: 30px;
+          font-size: clamp(14px, 1.17vw, 30px);
           letter-spacing: 0.5px;
           line-height: 1.15;
           color: rgba(255,255,255,0.85);
@@ -859,7 +859,7 @@ export default function AboutMe() {
           font-family: 'Barlow Condensed', sans-serif;
           font-style: italic;
           font-weight: 300;
-          font-size: 20px;
+          font-size: clamp(13px, 0.78vw, 20px);
           letter-spacing: 0.5px;
           color: rgba(255,255,255,0.85);
         }
