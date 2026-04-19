@@ -192,7 +192,9 @@ export default function AboutMe() {
               ))}
             </div>
           )}
-          <div className="sc-reveal-lower-bar">{REVEAL_CONTENT[active].lower}</div>
+          <div className="sc-reveal-lower-bar">
+            <span className="sc-lower-bar-text">{REVEAL_CONTENT[active].lower}</span>
+          </div>
         </div>
       )}
       {revealed && (
@@ -373,7 +375,7 @@ export default function AboutMe() {
           font-family: 'Barlow Condensed', sans-serif;
           font-style: italic;
           font-weight: 300;
-          font-size: 26px;
+          font-size: 38px;
           letter-spacing: 0.5px;
           line-height: 1.15;
         }
@@ -383,20 +385,27 @@ export default function AboutMe() {
           right: 0;
           width: 48%;
           height: 20%;
-          background: rgba(0, 0, 0, 0.92);
+          background: rgba(6, 10, 20, 0.96);
           clip-path: polygon(0 0, 100% 0, calc(100% - 22px) 100%, 0 100%);
-          box-shadow: 0 0 0 1px rgba(255,255,255,0.06);
+          box-shadow:
+            inset 3px 0 0 #00b4ff,
+            0 0 22px rgba(0, 180, 255, 0.2);
           display: flex;
           align-items: center;
           justify-content: flex-start;
-          color: #fff;
           font-family: 'Barlow Condensed', sans-serif;
           font-style: italic;
-          font-weight: 300;
-          font-size: 22px;
+          font-weight: 700;
+          font-size: 42px;
           letter-spacing: 0.4px;
-          text-transform: lowercase;
-          padding-left: 22px;
+          padding-left: 3vw;
+        }
+        .sc-lower-bar-text {
+          background: linear-gradient(90deg, #ffffff 0%, #a8deff 55%, #00b4ff 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          filter: drop-shadow(0 0 6px rgba(0, 180, 255, 0.65));
         }
 
         @keyframes sc-right-nav-pop {
@@ -596,7 +605,7 @@ export default function AboutMe() {
 
         .sc-label {
           font-family: 'Bebas Neue', sans-serif;
-          font-size: 28px;
+          font-size: 38px;
           letter-spacing: 4px;
           line-height: 1;
           color: rgba(255,255,255,0.85);
@@ -709,6 +718,7 @@ export default function AboutMe() {
           to   { transform: translateX(0%); }
         }
 
+
         /* ── Skills panel (Experience bar) ── */
         .sc-reveal-skills {
           position: absolute;
@@ -811,7 +821,7 @@ export default function AboutMe() {
           font-family: 'Barlow Condensed', sans-serif;
           font-style: italic;
           font-weight: 300;
-          font-size: 14px;
+          font-size: 30px;
           letter-spacing: 0.5px;
           line-height: 1.15;
           color: rgba(255,255,255,0.85);
