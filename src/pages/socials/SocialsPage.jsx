@@ -79,7 +79,7 @@ const ITEMS = [
   },
 ];
 
-export default function Socials() {
+export default function SocialsPage() {
   const [active, setActive] = useState(0);
   const [mounted, setMounted] = useState(false);
   const [activeInfoBar, setActiveInfoBar] = useState(0);

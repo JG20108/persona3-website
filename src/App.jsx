@@ -1,23 +1,11 @@
-import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
-import mainVideo from '@assets/main1.mp4';
-import P3Menu from './P3Menu';
-import VideoPage from './VideoPage';
-import ResumePage from './ResumePage';
-import PageTransition from './PageTransition';
-import Socials from './Socials';
-import AboutMe from './AboutMe';
+import PageTransition from '@shared/PageTransition';
+import MenuPage from '@pages/menu/MenuPage';
+import AboutPage from '@pages/about/AboutPage';
+import ResumePage from '@pages/resume/ResumePage';
+import SocialsPage from '@pages/socials/SocialsPage';
 import './App.css';
-
-function MenuScreen() {
-  const navigate = useNavigate();
-  return (
-    <div id="menu-screen">
-      <video src={mainVideo} autoPlay loop muted playsInline />
-      <P3Menu onNavigate={(page) => navigate(`/${page}`)} />
-    </div>
-  );
-}
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -28,7 +16,7 @@ function AnimatedRoutes() {
           path="/"
           element={
             <PageTransition>
-              <MenuScreen />
+              <MenuPage />
             </PageTransition>
           }
         />
@@ -36,15 +24,15 @@ function AnimatedRoutes() {
           path="/about"
           element={
             <PageTransition variant="about">
-              <AboutMe />
+              <AboutPage />
             </PageTransition>
           }
         />
         <Route
           path="/resume"
           element={
-            <PageTransition>
-              <ResumePage src={mainVideo} />
+            <PageTransition variant="resume">
+              <ResumePage />
             </PageTransition>
           }
         />
@@ -52,7 +40,7 @@ function AnimatedRoutes() {
           path="/socials"
           element={
             <PageTransition variant="socials">
-              <Socials />
+              <SocialsPage />
             </PageTransition>
           }
         />

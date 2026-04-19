@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import mainVideo from "@assets/main1.mp4";
 
 const ITEMS = [
   { id: "i",   badge: "I",   title: "EXPERIENCE", subtitle: "Roles / Companies",         rank: 1 },
@@ -131,7 +132,7 @@ const EDUCATION_ROWS = [
   },
 ];
 
-export default function ResumePage({ src }) {
+export default function ResumePage() {
   const navigate = useNavigate();
   const [active, setActive]           = useState(0);
   const [mounted, setMounted]         = useState(false);
@@ -164,9 +165,9 @@ export default function ResumePage({ src }) {
 
   return (
     <div id="menu-screen">
-      <video src={src} autoPlay loop muted playsInline />
+      <video src={mainVideo} autoPlay loop muted playsInline />
       <div className="resume-entry-mask" aria-hidden="true">
-        <video className="resume-entry-video" src={src} autoPlay loop muted playsInline />
+        <video className="resume-entry-video" src={mainVideo} autoPlay loop muted playsInline />
       </div>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&display=swap');
