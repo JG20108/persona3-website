@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 const ITEMS = [
   { id: "about",   label: "ABOUT ME",      page: "about",   fontSize: 80, offsetX: 0,  offsetY: 0,  skew: -6,  skewY: 10  },
   { id: "resume",  label: "RESUME",        page: "resume",  fontSize: 66, offsetX: 20, offsetY: 8,  skew: -11, skewY: -10 },
+  { id: "github",  label: "GITHUB LINK",   page: "github",  href: "https://github.com/JG20108/persona3-website", fontSize: 68, offsetX: 8,  offsetY: 6,  skew: 0,   skewY: -4  },
   { id: "socials", label: "SOCIALS",       page: "socials", fontSize: 74, offsetX: 16, offsetY: 8,  skew: -3,  skewY: 5   },
 ];
 
@@ -33,11 +34,15 @@ export default function P3Menu({ onNavigate }) {
     const onKey = (e) => {
       if (e.key === "ArrowUp")   activate(Math.max(0, active - 1));
       if (e.key === "ArrowDown") activate(Math.min(ITEMS.length - 1, active + 1));
-      if (e.key === "Enter")     onNavigate?.(ITEMS[active].page);
+      if (e.key === "Enter") {
+        const item = ITEMS[active];
+        if (item.href) window.open(item.href, "_blank");
+        else onNavigate?.(item.page);
+      }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [active]);
+  }, [active, onNavigate]);
 
   return (
     <>
@@ -62,6 +67,7 @@ export default function P3Menu({ onNavigate }) {
           display: flex;
           flex-direction: column;
           align-items: center;
+          gap: 18px;
           pointer-events: all;
         }
 
@@ -260,7 +266,11 @@ export default function P3Menu({ onNavigate }) {
                   marginTop: item.offsetY,
                   transitionDelay: mounted ? `${i * 80}ms` : "0ms",
                 }}
-                onClick={(e) => { e.preventDefault(); onNavigate?.(item.page); }}
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (item.href) window.open(item.href, "_blank");
+                  else onNavigate?.(item.page);
+                }}
                 onMouseEnter={() => activate(i)}
                 aria-current={isActive ? "page" : undefined}
               >
