@@ -1,0 +1,71 @@
+.view-toggle {
+  display: inline-flex;
+  gap: 4px;
+  pointer-events: auto;
+}
+
+.view-toggle-pill {
+  font-family: 'Bebas Neue', sans-serif;
+  letter-spacing: 2px;
+  border: 2px solid rgba(0, 180, 255, 0.6);
+  background: rgba(6, 10, 22, 0.88);
+  color: rgba(141, 246, 255, 0.85);
+  cursor: pointer;
+  transition:
+    background 0.18s ease,
+    border-color 0.18s ease,
+    color 0.18s ease,
+    transform 0.18s ease;
+  padding: 6px 14px;
+  font-size: 14px;
+  line-height: 1;
+  clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+}
+
+.view-toggle-pill:hover {
+  color: #ffffff;
+  border-color: #00b4ff;
+  transform: translateY(-1px);
+}
+
+.view-toggle-pill.active {
+  background: #d63232;
+  border-color: #ff5a5a;
+  color: #ffffff;
+  cursor: default;
+  transform: none;
+}
+
+.view-toggle-pill.active:hover {
+  background: #d63232;
+  border-color: #ff5a5a;
+  color: #ffffff;
+  transform: none;
+}
+
+/* ---------- Rotated variant (lives inside the tilted name tag) ---------- */
+.view-toggle--rotated {
+  margin-top: 0.6vh;
+  margin-left: 0.4vw;
+  gap: 3px;
+}
+
+.view-toggle--rotated .view-toggle-pill {
+  padding: 4px 10px;
+  font-size: 12px;
+  letter-spacing: 1.5px;
+}
+
+/* ---------- Flat variant (standard-view nav) ---------- */
+.view-toggle--flat .view-toggle-pill {
+  padding: 8px 18px;
+  font-size: 15px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .view-toggle-pill,
+  .view-toggle-pill:hover {
+    transition: none;
+    transform: none;
+  }
+}

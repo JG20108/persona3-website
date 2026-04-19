@@ -1,0 +1,207 @@
+/* =============================================================================
+   Standard-view sticky nav + mobile drawer.
+
+   NOTE: The mobile drawer (.std-nav-drawer) is rendered as a SIBLING of
+   .std-nav in the DOM on purpose. `backdrop-filter` on .std-nav creates a
+   containing block, which would trap fixed-position descendants inside the
+   ~60px-tall nav box and visibly crop the drawer.
+============================================================================= */
+
+.std-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(5, 10, 30, 0.94);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 2px solid rgba(0, 180, 255, 0.35);
+  font-family: 'Bebas Neue', sans-serif;
+}
+
+.std-nav-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 12px clamp(16px, 3vw, 28px);
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.std-nav-brand {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+  text-decoration: none;
+  flex-shrink: 0;
+  color: inherit;
+}
+
+.std-nav-brand-name {
+  font-family: 'Anton', sans-serif;
+  font-style: italic;
+  font-size: clamp(1.3rem, 2.2vw, 1.6rem);
+  color: #ffffff;
+  letter-spacing: 1px;
+}
+
+.std-nav-brand-sub {
+  font-size: clamp(0.7rem, 1.3vw, 0.8rem);
+  color: rgba(141, 246, 255, 0.7);
+  letter-spacing: 3px;
+  margin-top: 2px;
+}
+
+/* ---------- Inline links (desktop only) ---------- */
+.std-nav-links-inline {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: 1;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.std-nav-link {
+  font-size: clamp(0.85rem, 1.5vw, 0.95rem);
+  letter-spacing: 2px;
+  color: rgba(237, 250, 255, 0.6);
+  text-decoration: none;
+  padding: 8px 14px;
+  transition: color 0.2s ease, border-color 0.2s ease;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+}
+
+.std-nav-link:hover { color: #ffffff; }
+
+.std-nav-link.active {
+  color: #ffffff;
+  border-bottom-color: #d63232;
+}
+
+/* ---------- Burger button ---------- */
+.std-nav-burger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  margin-left: auto;
+  position: relative;
+  z-index: 120;
+}
+
+.std-nav-burger span {
+  display: block;
+  width: 26px;
+  height: 2px;
+  background: #8df6ff;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+  transform-origin: center;
+}
+
+.std-nav-burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.std-nav-burger.open span:nth-child(2) { opacity: 0; }
+.std-nav-burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* =============================================================================
+   Mobile drawer (rendered as sibling of .std-nav — see note at top)
+============================================================================= */
+.std-nav-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(340px, 82vw);
+  padding: 88px 28px 32px;
+  display: none;                   /* hidden entirely on desktop */
+  flex-direction: column;
+  gap: 14px;
+  background: rgba(5, 10, 30, 0.98);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-left: 2px solid rgba(0, 180, 255, 0.35);
+  transform: translateX(100%);
+  transition: transform 0.28s ease;
+  box-shadow: -12px 0 32px rgba(0, 0, 0, 0.5);
+  overflow-y: auto;
+  z-index: 110;
+  font-family: 'Bebas Neue', sans-serif;
+}
+
+.std-nav-drawer.open {
+  transform: translateX(0);
+}
+
+.std-nav-drawer-link {
+  font-size: 1.25rem;
+  letter-spacing: 2px;
+  color: rgba(237, 250, 255, 0.75);
+  text-decoration: none;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(141, 246, 255, 0.12);
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.std-nav-drawer-link:hover { color: #ffffff; }
+
+.std-nav-drawer-link.active {
+  color: #ffffff;
+  border-bottom-color: #d63232;
+}
+
+.std-nav-drawer-toggle {
+  margin-top: 28px;
+}
+
+/* Tappable scrim behind the drawer. Button element for a11y; invisible until open. */
+.std-nav-backdrop {
+  display: none;                   /* hidden on desktop */
+  position: fixed;
+  inset: 0;
+  border: none;
+  padding: 0;
+  background: rgba(0, 0, 0, 0.55);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.28s ease;
+  z-index: 105;
+  cursor: pointer;
+}
+
+.std-nav-backdrop.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* =============================================================================
+   Mobile breakpoint: swap inline links for the drawer
+============================================================================= */
+@media (max-width: 900px) {
+  .std-nav-inner { padding: 10px 16px; gap: 12px; }
+
+  .std-nav-links-inline,
+  .std-nav-toggle-desktop {
+    display: none;
+  }
+
+  .std-nav-burger { display: flex; }
+  .std-nav-drawer  { display: flex; }
+  .std-nav-backdrop { display: block; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .std-nav-link,
+  .std-nav-drawer,
+  .std-nav-drawer-link,
+  .std-nav-backdrop,
+  .std-nav-burger span {
+    transition: none;
+  }
+}
