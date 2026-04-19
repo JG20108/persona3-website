@@ -2,40 +2,143 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const ITEMS = [
-  { id: "i", badge: "I", title: "EDUCATION", subtitle: "University / Coursework", rank: 3 },
-  { id: "ii", badge: "II", title: "SKILLS", subtitle: "Frontend / Design / UI", rank: 4 },
-  { id: "iii", badge: "III", title: "PROJECTS", subtitle: "Featured Work", rank: 5 },
-  { id: "iv", badge: "IV", title: "EXPERIENCE", subtitle: "Internships / Roles", rank: 2 },
+  { id: "i",   badge: "I",   title: "EXPERIENCE", subtitle: "Roles / Companies",         rank: 1 },
+  { id: "ii",  badge: "II",  title: "SKILLS",     subtitle: "Frontend / Backend / Mobile", rank: 2 },
+  { id: "iii", badge: "III", title: "EDUCATION",  subtitle: "University / Abroad",        rank: 3 },
+];
+
+const EXPERIENCE_ROWS = [
+  {
+    index: "01",
+    company: "DESIGNLI LLC",
+    position: "Tech Lead & Senior Developer",
+    period: "2024-NOW",
+    highlights: [
+      "Led end-to-end SDLC using DDD, Clean Architecture & BDD",
+      "Established dev standards & mentored team members",
+      "Reduced tech debt via SonarCloud, Husky, ESLint & Copilot Reviews",
+      "Conducted 1:1s for professional growth & career alignment",
+      "Modernized legacy applications including Open Dental",
+    ],
+    tech: ["NextJS", "NestJS", "Postgres", "AWS", "Docker", "Auth0", "Jest"],
+  },
+  {
+    index: "02",
+    company: "WOT DEV",
+    position: "Developer",
+    period: "AUG-OCT 24",
+    highlights: [
+      "Developed desktop CMS and mobile educational platform",
+      "Designed & managed Postgres database architecture",
+      "Tracked bugs & features using Jira & Trello",
+    ],
+    tech: ["React Vite", "Redux", "Postgres", "AWS", "Ruby on Rails"],
+  },
+  {
+    index: "03",
+    company: "HELLO ICONIC",
+    position: "Developer",
+    period: "2023-24",
+    highlights: [
+      "Full SDLC on Neil Young Archives & Real Formation",
+      "Modernized legacy codebases to current standards",
+      "Developed for both desktop and mobile platforms",
+      "Documented technical workflows for team onboarding",
+    ],
+    tech: ["React JS", "Redux", "MongoDB", "Swift", "Kotlin", "AWS", "Rails", "NestJS"],
+  },
+  {
+    index: "04",
+    company: "HELLO ICONIC",
+    position: "Software Engineering Intern",
+    period: "2022-23",
+    highlights: [
+      "Learned engineering best practices & wrote clean code",
+      "Collaborated to identify and resolve software bugs",
+      "Contributed to successful project deployments",
+    ],
+    tech: ["React JS", "Redux", "MongoDB", "Auth0", "Stripe"],
+  },
+  {
+    index: "05",
+    company: "BUFETE GUILLEN",
+    position: "Freelance Developer",
+    period: "2022",
+    highlights: [
+      "Built comprehensive website in collaboration with Tenloo",
+      "Conducted needs analysis to tailor website features",
+      "Ensured responsiveness and cross-device compatibility",
+    ],
+    tech: ["TypeScript", "JavaScript", "HTML", "CSS"],
+  },
+];
+
+const SKILL_ROWS = [
+  { index: "01", category: "FRONTEND",   skills: ["TypeScript", "React JS", "NextJS", "Redux", "HTML / CSS"],          count: "5" },
+  { index: "02", category: "BACKEND",    skills: ["Node.js", "NestJS", "Ruby on Rails", "Express.js"],                  count: "4" },
+  { index: "03", category: "MOBILE",     skills: ["Swift", "Kotlin", "SQLite"],                                          count: "3" },
+  { index: "04", category: "DATABASE",   skills: ["Postgres", "MongoDB", "Redis", "AWS DynamoDB & S3"],                  count: "4" },
+  { index: "05", category: "DEVOPS",     skills: ["Git / GitHub / Gitflow", "Docker", "Jest", "Auth0", "Stripe"],        count: "5" },
+  { index: "06", category: "PRACTICES",  skills: ["Clean Architecture", "DDD", "Code Review", "Agile / Scrum", "Docs"], count: "5" },
 ];
 
 const EDUCATION_ROWS = [
-  { index: "01", title: "General Education", status: "Complete" },
-  { index: "02", title: "Computer Science Core", status: "In Progress" },
-  { index: "03", title: "Elective Track", status: "Queued" },
-  { index: "04", title: "Capstone Prep", status: "Pending" },
+  {
+    index: "01",
+    title: "B.Sc. Computer Science Engineering",
+    institution: "Universidad Católica De Honduras",
+    location: "Tegucigalpa, Honduras",
+    status: "COMPLETE",
+    detail: "Core curriculum covering software engineering, data structures, algorithms, databases, and systems design.",
+  },
+  {
+    index: "02",
+    title: "Computer Engineering — Abroad Studies",
+    institution: "Minnesota State University Mankato",
+    location: "Mankato, Minnesota, USA",
+    status: "COMPLETE",
+    detail: "International academic exchange with focus on Computer Engineering and advanced software systems.",
+  },
+  {
+    index: "03",
+    title: "AFS Cultural & Academic Exchange",
+    institution: "Istituto Omnicomprensivo Leonardo Da Vinci",
+    location: "Acquapendente, Viterbo, Italy",
+    status: "COMPLETE",
+    detail: "Year-long immersive cultural and academic programme, building cross-cultural communication and adaptability.",
+  },
 ];
 
 export default function ResumePage({ src }) {
   const navigate = useNavigate();
-  const [active, setActive] = useState(1);
-  const [mounted, setMounted] = useState(false);
+  const [active, setActive]           = useState(0);
+  const [mounted, setMounted]         = useState(false);
+  const [selectedRow, setSelectedRow] = useState(0);
 
   useEffect(() => {
     const t = setTimeout(() => setMounted(true), 80);
     return () => clearTimeout(t);
   }, []);
 
+  const handleSetActive = (index) => {
+    setActive(index);
+    setSelectedRow(0);
+  };
+
   useEffect(() => {
     const onKey = (e) => {
-      if (e.key === "ArrowUp") setActive((i) => Math.max(0, i - 1));
-      if (e.key === "ArrowDown") setActive((i) => Math.min(ITEMS.length - 1, i + 1));
-      if (e.key === "ArrowLeft") navigate(-1);
+      if (e.key === "ArrowUp")    handleSetActive(Math.max(0, active - 1));
+      if (e.key === "ArrowDown")  handleSetActive(Math.min(ITEMS.length - 1, active + 1));
+      if (e.key === "ArrowLeft")  navigate(-1);
       if (e.key === "Escape" || e.key === "Backspace") navigate(-1);
     };
-
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [navigate]);
+  }, [navigate, active]);
+
+  const expRow  = EXPERIENCE_ROWS[selectedRow] ?? EXPERIENCE_ROWS[0];
+  const skillRow = SKILL_ROWS[selectedRow]      ?? SKILL_ROWS[0];
+  const eduRow  = EDUCATION_ROWS[selectedRow]   ?? EDUCATION_ROWS[0];
 
   return (
     <div id="menu-screen">
@@ -67,7 +170,7 @@ export default function ResumePage({ src }) {
 
         @keyframes resume-entry-reveal {
           from { clip-path: circle(0 at 50% 50%); }
-          to { clip-path: circle(150vmax at 50% 50%); }
+          to   { clip-path: circle(150vmax at 50% 50%); }
         }
 
         .resume-overlay {
@@ -242,12 +345,14 @@ export default function ResumePage({ src }) {
           color: #fff;
         }
 
+        /* ── Detail panel ── */
         .resume-detail-panel {
           position: absolute;
           top: 9.5vh;
           right: 4.5vw;
           width: min(39vw, 620px);
           min-height: 74vh;
+          max-height: 86vh;
           z-index: 12;
           padding: 22px 24px 24px 24px;
           background: linear-gradient(180deg, rgba(15, 28, 105, 0.96) 0%, rgba(8, 16, 68, 0.97) 100%);
@@ -256,6 +361,10 @@ export default function ResumePage({ src }) {
             inset 0 0 0 1px rgba(133, 244, 255, 0.16),
             16px 16px 0 rgba(0, 6, 30, 0.55);
           overflow: hidden;
+          display: flex;
+          flex-direction: column;
+          gap: 0;
+          pointer-events: all;
         }
         .resume-detail-panel::before {
           content: "";
@@ -266,108 +375,162 @@ export default function ResumePage({ src }) {
             linear-gradient(180deg, rgba(255,255,255,0.05), transparent 24%);
           pointer-events: none;
         }
+
         .resume-detail-top {
           position: relative;
           display: grid;
-          grid-template-columns: 70px 1fr auto;
+          grid-template-columns: 60px 1fr auto;
           align-items: center;
           gap: 14px;
-          min-height: 92px;
+          min-height: 80px;
           padding: 0 18px;
           background: linear-gradient(90deg, #8ef5ff 0%, #d3fdff 100%);
           clip-path: polygon(0 0, 100% 0, calc(100% - 16px) 100%, 0 100%);
           color: #08153f;
           box-shadow: 10px 0 0 rgba(255, 94, 136, 0.88);
+          flex-shrink: 0;
         }
         .resume-detail-top-index {
           font-family: 'Anton', sans-serif;
-          font-size: 46px;
+          font-size: 40px;
           line-height: 1;
         }
         .resume-detail-top-title {
           font-family: 'Anton', sans-serif;
-          font-size: 42px;
+          font-size: 36px;
           line-height: 0.92;
           letter-spacing: 1px;
         }
         .resume-detail-top-progress {
           font-family: 'Bebas Neue', sans-serif;
-          font-size: 42px;
+          font-size: 36px;
           letter-spacing: 2px;
           line-height: 1;
         }
+
         .resume-detail-list {
           position: relative;
           display: flex;
           flex-direction: column;
-          gap: 10px;
-          margin-top: 18px;
+          gap: 7px;
+          margin-top: 14px;
+          overflow-y: auto;
+          flex-shrink: 0;
         }
         .resume-detail-row {
           display: grid;
-          grid-template-columns: 50px 1fr auto;
+          grid-template-columns: 44px 1fr auto;
           align-items: center;
-          gap: 14px;
-          min-height: 56px;
-          padding: 0 14px;
+          gap: 12px;
+          min-height: 52px;
+          padding: 6px 14px;
           background: rgba(8, 18, 72, 0.96);
           clip-path: polygon(0 0, 100% 0, calc(100% - 14px) 100%, 0 100%);
           box-shadow: inset 0 0 0 1px rgba(140, 239, 255, 0.12);
           transition: transform 0.16s ease, background 0.16s ease;
+          cursor: pointer;
         }
-        .resume-detail-row:hover {
+        .resume-detail-row:hover,
+        .resume-detail-row.selected {
           transform: translateX(4px);
           background: rgba(12, 26, 94, 1);
         }
+        .resume-detail-row.selected {
+          box-shadow: inset 0 0 0 1px rgba(140, 239, 255, 0.35);
+        }
         .resume-detail-row-index {
           font-family: 'Bebas Neue', sans-serif;
-          font-size: 26px;
+          font-size: 24px;
           letter-spacing: 1px;
           color: #94f4ff;
         }
+        .resume-detail-row-title-group {
+          display: flex;
+          flex-direction: column;
+          gap: 1px;
+          overflow: hidden;
+        }
         .resume-detail-row-title {
           font-family: 'Anton', sans-serif;
-          font-size: 28px;
+          font-size: 22px;
           line-height: 1;
           color: #f2fcff;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        .resume-detail-row-sub {
+          font-family: 'Bebas Neue', sans-serif;
+          font-size: 14px;
+          letter-spacing: 1px;
+          color: rgba(148, 244, 255, 0.65);
+          line-height: 1;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
         .resume-detail-status {
           font-family: 'Bebas Neue', sans-serif;
-          font-size: 22px;
+          font-size: 18px;
           line-height: 1;
-          letter-spacing: 1.1px;
+          letter-spacing: 1px;
           color: #06133b;
           background: #8df6ff;
-          padding: 7px 12px;
+          padding: 5px 10px;
           clip-path: polygon(0 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+          flex-shrink: 0;
         }
+
         .resume-detail-bottom {
           position: relative;
-          margin-top: 22px;
-          padding: 18px;
+          margin-top: 14px;
+          padding: 16px;
           background: rgba(5, 13, 57, 0.97);
           clip-path: polygon(0 0, 100% 0, calc(100% - 16px) 100%, 0 100%);
           box-shadow: inset 0 0 0 1px rgba(145, 239, 255, 0.12);
+          flex: 1;
         }
         .resume-detail-bottom-title {
           font-family: 'Bebas Neue', sans-serif;
-          font-size: 30px;
+          font-size: 26px;
           letter-spacing: 2px;
           color: #91f5ff;
-          margin-bottom: 14px;
+          margin-bottom: 10px;
         }
         .resume-detail-bullets {
           display: flex;
           flex-direction: column;
-          gap: 10px;
+          gap: 7px;
         }
         .resume-detail-bullet {
           font-family: 'Anton', sans-serif;
-          font-size: 21px;
-          line-height: 1.15;
+          font-size: 18px;
+          line-height: 1.2;
           color: #edfaff;
         }
-
+        .resume-detail-tags {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 6px;
+          margin-top: 12px;
+        }
+        .resume-detail-tag {
+          font-family: 'Bebas Neue', sans-serif;
+          font-size: 15px;
+          letter-spacing: 1px;
+          padding: 4px 10px;
+          background: rgba(140, 239, 255, 0.12);
+          border: 1px solid rgba(140, 239, 255, 0.3);
+          color: #8df6ff;
+          clip-path: polygon(0 0, 100% 0, calc(100% - 6px) 100%, 0 100%);
+        }
+        .resume-detail-location {
+          font-family: 'Bebas Neue', sans-serif;
+          font-size: 16px;
+          letter-spacing: 1.5px;
+          color: rgba(148, 244, 255, 0.6);
+          margin-bottom: 10px;
+        }
       `}</style>
 
       <div className="resume-overlay">
@@ -378,12 +541,8 @@ export default function ResumePage({ src }) {
               key={item.id}
               className={`resume-card-wrap${active === index ? " active" : ""}${mounted ? " mounted" : ""}`}
               style={{ transitionDelay: `${index * 55}ms` }}
-              onMouseEnter={() => {
-                setActive(index);
-              }}
-              onClick={() => {
-                setActive(index);
-              }}
+              onMouseEnter={() => handleSetActive(index)}
+              onClick={() => handleSetActive(index)}
             >
               <div className="resume-card">
                 <div className="resume-badge">
@@ -404,30 +563,120 @@ export default function ResumePage({ src }) {
           ))}
         </div>
 
+        {/* ── EXPERIENCE ── */}
         {active === 0 && (
           <div className="resume-detail-panel">
             <div className="resume-detail-top">
-              <div className="resume-detail-top-index">01</div>
-              <div className="resume-detail-top-title">EDUCATION LOG</div>
-              <div className="resume-detail-top-progress">7/5</div>
+              <div className="resume-detail-top-index">EXP</div>
+              <div className="resume-detail-top-title">EXPERIENCE LOG</div>
+              <div className="resume-detail-top-progress">{EXPERIENCE_ROWS.length} ROLES</div>
             </div>
 
             <div className="resume-detail-list">
-              {EDUCATION_ROWS.map((row) => (
-                <div className="resume-detail-row" key={row.index}>
+              {EXPERIENCE_ROWS.map((row, i) => (
+                <div
+                  className={`resume-detail-row${selectedRow === i ? " selected" : ""}`}
+                  key={row.index}
+                  onClick={() => setSelectedRow(i)}
+                  onMouseEnter={() => setSelectedRow(i)}
+                >
                   <div className="resume-detail-row-index">{row.index}</div>
-                  <div className="resume-detail-row-title">{row.title}</div>
+                  <div className="resume-detail-row-title-group">
+                    <div className="resume-detail-row-title">{row.company}</div>
+                    <div className="resume-detail-row-sub">{row.position}</div>
+                  </div>
+                  <div className="resume-detail-status">{row.period}</div>
+                </div>
+              ))}
+            </div>
+
+            <div className="resume-detail-bottom">
+              <div className="resume-detail-bottom-title">{expRow.company} — {expRow.position}</div>
+              <div className="resume-detail-bullets">
+                {expRow.highlights.map((h) => (
+                  <div className="resume-detail-bullet" key={h}>— {h}</div>
+                ))}
+              </div>
+              <div className="resume-detail-tags">
+                {expRow.tech.map((t) => (
+                  <div className="resume-detail-tag" key={t}>{t}</div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ── SKILLS ── */}
+        {active === 1 && (
+          <div className="resume-detail-panel">
+            <div className="resume-detail-top">
+              <div className="resume-detail-top-index">SKL</div>
+              <div className="resume-detail-top-title">SKILLS LOG</div>
+              <div className="resume-detail-top-progress">6 AREAS</div>
+            </div>
+
+            <div className="resume-detail-list">
+              {SKILL_ROWS.map((row, i) => (
+                <div
+                  className={`resume-detail-row${selectedRow === i ? " selected" : ""}`}
+                  key={row.index}
+                  onClick={() => setSelectedRow(i)}
+                  onMouseEnter={() => setSelectedRow(i)}
+                >
+                  <div className="resume-detail-row-index">{row.index}</div>
+                  <div className="resume-detail-row-title-group">
+                    <div className="resume-detail-row-title">{row.category}</div>
+                    <div className="resume-detail-row-sub">{row.skills.slice(0, 3).join(" · ")}</div>
+                  </div>
+                  <div className="resume-detail-status">{row.count}</div>
+                </div>
+              ))}
+            </div>
+
+            <div className="resume-detail-bottom">
+              <div className="resume-detail-bottom-title">{skillRow.category}</div>
+              <div className="resume-detail-tags">
+                {skillRow.skills.map((s) => (
+                  <div className="resume-detail-tag" key={s}>{s}</div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ── EDUCATION ── */}
+        {active === 2 && (
+          <div className="resume-detail-panel">
+            <div className="resume-detail-top">
+              <div className="resume-detail-top-index">EDU</div>
+              <div className="resume-detail-top-title">EDUCATION LOG</div>
+              <div className="resume-detail-top-progress">{EDUCATION_ROWS.length} INST</div>
+            </div>
+
+            <div className="resume-detail-list">
+              {EDUCATION_ROWS.map((row, i) => (
+                <div
+                  className={`resume-detail-row${selectedRow === i ? " selected" : ""}`}
+                  key={row.index}
+                  onClick={() => setSelectedRow(i)}
+                  onMouseEnter={() => setSelectedRow(i)}
+                >
+                  <div className="resume-detail-row-index">{row.index}</div>
+                  <div className="resume-detail-row-title-group">
+                    <div className="resume-detail-row-title">{row.title}</div>
+                    <div className="resume-detail-row-sub">{row.institution}</div>
+                  </div>
                   <div className="resume-detail-status">{row.status}</div>
                 </div>
               ))}
             </div>
 
             <div className="resume-detail-bottom">
-              <div className="resume-detail-bottom-title">DETAILS</div>
+              <div className="resume-detail-bottom-title">{eduRow.institution}</div>
+              <div className="resume-detail-location">{eduRow.location}</div>
               <div className="resume-detail-bullets">
-                <div className="resume-detail-bullet">- Maintain progress across required classes and supporting work.</div>
-                <div className="resume-detail-bullet">- Track portfolio-ready projects tied to coursework and labs.</div>
-                <div className="resume-detail-bullet">- Keep materials prepared for internships, research, and review.</div>
+                <div className="resume-detail-bullet">— {eduRow.title}</div>
+                <div className="resume-detail-bullet">— {eduRow.detail}</div>
               </div>
             </div>
           </div>
