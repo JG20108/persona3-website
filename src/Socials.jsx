@@ -699,7 +699,10 @@ export default function Socials() {
             className={`sc-info-bar-wrap${activeInfoBar === i ? ' selected' : ''}`}
             key={`bar-${active}-${i}`}
             style={{ top: `${155 + i * 52}px`, animationDelay: `${i * 50}ms` }}
-            onClick={() => { setActiveInfoBar(i); window.open(ITEMS[active].links[i], '_blank'); }}
+            onClick={() => {
+              setActiveInfoBar(i);
+              window.open(ITEMS[active].links[i], '_blank');
+            }}
             onMouseEnter={() => setActiveInfoBar(i)}
           >
             <div className="sc-info-bar">
