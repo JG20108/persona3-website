@@ -1,0 +1,812 @@
+/* =============================================================================
+   Standard view — single-page responsive portfolio.
+   Design language: Persona 3 Reload palette + clipped slabs, but laid out with
+   honest CSS Grid / Flexbox and clamp() typography so it works on every device.
+   All styles are namespaced under .page-standard to avoid bleeding into the
+   interactive pages.
+============================================================================= */
+
+.page-standard {
+  --std-bg:              #08153f;
+  --std-bg-deep:         #050e2e;
+  --std-bg-card:         rgba(8, 18, 72, 0.92);
+  --std-bg-card-alt:     rgba(12, 26, 94, 0.88);
+
+  --std-accent-red:      #d63232;
+  --std-accent-red-soft: #e64545;
+  --std-accent-cyan:     #8df6ff;
+  --std-accent-cyan-mid: rgba(141, 246, 255, 0.35);
+  --std-accent-cyan-dim: rgba(141, 246, 255, 0.18);
+  --std-accent-blue:     #00b4ff;
+
+  --std-text:            #edfaff;
+  --std-text-dim:        rgba(237, 250, 255, 0.72);
+  --std-text-faint:      rgba(237, 250, 255, 0.48);
+
+  --std-border:          rgba(141, 246, 255, 0.18);
+  --std-clip-card:       polygon(0 0, 100% 0, calc(100% - 14px) 100%, 0 100%);
+  --std-clip-chip:       polygon(0 0, 100% 0, calc(100% - 6px) 100%, 0 100%);
+
+  min-height: 100vh;
+  background: var(--std-bg);
+  color: var(--std-text);
+  font-family: 'Barlow Condensed', sans-serif;
+  line-height: 1.6;
+
+  background-image:
+    radial-gradient(ellipse at top, rgba(0, 71, 255, 0.18) 0%, transparent 60%),
+    linear-gradient(180deg, var(--std-bg) 0%, var(--std-bg-deep) 100%);
+  background-attachment: fixed;
+}
+
+.page-standard *,
+.page-standard *::before,
+.page-standard *::after {
+  box-sizing: border-box;
+}
+
+.page-standard-main {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 24px clamp(16px, 3vw, 28px) 48px;
+}
+
+.std-section {
+  margin-bottom: clamp(40px, 6vw, 72px);
+  scroll-margin-top: 96px;
+}
+
+/* =============================================================================
+   Section header (reusable banner) — mirrors the interactive-view resume bar
+============================================================================= */
+.std-section-header {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 14px;
+  min-height: 72px;
+  padding: 8px 22px;
+  background: linear-gradient(90deg, #8ef5ff 0%, #d3fdff 100%);
+  clip-path: polygon(0 0, 100% 0, calc(100% - 18px) 100%, 0 100%);
+  color: #08153f;
+  box-shadow: 10px 0 0 rgba(214, 50, 50, 0.88);
+  margin-bottom: clamp(18px, 2.5vw, 28px);
+}
+
+.std-section-header-index {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  line-height: 1;
+}
+
+.std-section-header-title {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(1.4rem, 3.4vw, 2.1rem);
+  line-height: 0.95;
+  letter-spacing: 1px;
+}
+
+.std-section-header-progress {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+  letter-spacing: 2px;
+  line-height: 1;
+  color: #d63232;
+}
+
+@media (max-width: 640px) {
+  .std-section-header {
+    min-height: 60px;
+    padding: 10px 16px;
+  }
+}
+
+/* =============================================================================
+   Hero
+============================================================================= */
+.std-hero {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: clamp(24px, 4vw, 48px);
+  padding: clamp(28px, 5vw, 56px) 0 clamp(20px, 4vw, 40px);
+  min-height: clamp(320px, 50vw, 440px);
+}
+
+.std-hero-content {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.std-hero-kicker {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(0.85rem, 1.8vw, 1.1rem);
+  letter-spacing: 4px;
+  color: var(--std-accent-cyan);
+  margin: 0;
+}
+
+.std-hero-name {
+  font-family: 'Anton', sans-serif;
+  font-style: italic;
+  font-size: clamp(2.5rem, 8vw, 5.25rem);
+  line-height: 0.9;
+  letter-spacing: 2px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.std-hero-name-accent {
+  color: var(--std-accent-red);
+}
+
+.std-hero-tagline {
+  font-size: clamp(0.95rem, 1.8vw, 1.25rem);
+  font-style: italic;
+  color: var(--std-text-dim);
+  max-width: 46ch;
+  margin: 4px 0 0;
+}
+
+.std-hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(0.85rem, 1.6vw, 1.05rem);
+  letter-spacing: 3px;
+  color: var(--std-text-faint);
+  margin-top: 8px;
+}
+
+.std-hero-dot { color: var(--std-accent-red); }
+
+.std-hero-photo-wrap {
+  width: clamp(180px, 28vw, 320px);
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  clip-path: polygon(12px 0, 100% 0, calc(100% - 12px) 100%, 0 100%);
+  box-shadow: 12px 12px 0 var(--std-accent-red);
+}
+
+.std-hero-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+}
+
+@media (max-width: 720px) {
+  .std-hero {
+    grid-template-columns: 1fr;
+    padding: 24px 0 16px;
+    min-height: auto;
+    text-align: left;
+  }
+  .std-hero-photo-wrap {
+    order: -1;
+    width: min(70%, 280px);
+  }
+}
+
+/* =============================================================================
+   About
+============================================================================= */
+.std-about-card {
+  padding: clamp(20px, 3vw, 32px);
+  background: var(--std-bg-card);
+  clip-path: var(--std-clip-card);
+  box-shadow: inset 0 0 0 1px var(--std-border);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.std-about-line {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-style: italic;
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  color: var(--std-text);
+  margin: 0;
+}
+
+.std-about-line:first-child {
+  font-weight: 700;
+  color: var(--std-accent-cyan);
+  font-size: clamp(1.15rem, 2.4vw, 1.55rem);
+}
+
+/* =============================================================================
+   Core Competencies
+============================================================================= */
+.std-competencies-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 18px;
+}
+
+.std-competency-card {
+  padding: clamp(18px, 2.5vw, 26px);
+  background: var(--std-bg-card);
+  clip-path: var(--std-clip-card);
+  box-shadow: inset 0 0 0 1px var(--std-border);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.std-competency-card:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    inset 0 0 0 1px var(--std-border),
+    0 8px 0 rgba(214, 50, 50, 0.88);
+}
+
+.std-competency-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: clamp(1.25rem, 2.4vw, 1.6rem);
+  color: var(--std-accent-red);
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+
+.std-competency-line {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-style: italic;
+  font-size: clamp(0.95rem, 1.7vw, 1.1rem);
+  color: var(--std-text-dim);
+  margin: 0;
+}
+
+/* =============================================================================
+   Experience
+============================================================================= */
+.std-experience-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.std-experience-item {
+  padding: clamp(18px, 2.5vw, 24px);
+  background: var(--std-bg-card);
+  clip-path: var(--std-clip-card);
+  box-shadow: inset 0 0 0 1px var(--std-border);
+}
+
+.std-experience-header {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--std-border);
+  margin-bottom: 14px;
+}
+
+.std-experience-index {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  color: var(--std-accent-cyan);
+  letter-spacing: 1px;
+  line-height: 1;
+}
+
+.std-experience-titles { min-width: 0; }
+
+.std-experience-company {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+  color: var(--std-text);
+  margin: 0;
+  letter-spacing: 1px;
+  line-height: 1.1;
+}
+
+.std-experience-position {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(0.85rem, 1.6vw, 1rem);
+  color: var(--std-accent-cyan);
+  letter-spacing: 1.5px;
+  margin: 3px 0 0;
+}
+
+.std-experience-period {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(0.85rem, 1.5vw, 1rem);
+  color: #06133b;
+  background: var(--std-accent-cyan);
+  padding: 6px 12px;
+  clip-path: polygon(0 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+  letter-spacing: 1px;
+  line-height: 1;
+  white-space: nowrap;
+  align-self: center;
+}
+
+.std-experience-highlights {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.std-experience-highlights li {
+  position: relative;
+  padding-left: 20px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(0.95rem, 1.7vw, 1.05rem);
+  color: var(--std-text);
+  line-height: 1.5;
+}
+
+.std-experience-highlights li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--std-accent-red);
+  font-weight: 700;
+}
+
+.std-experience-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+@media (max-width: 560px) {
+  .std-experience-header {
+    grid-template-columns: auto 1fr;
+    grid-template-areas:
+      "index titles"
+      "period period";
+    row-gap: 10px;
+  }
+  .std-experience-index    { grid-area: index; }
+  .std-experience-titles   { grid-area: titles; }
+  .std-experience-period {
+    grid-area: period;
+    justify-self: start;
+  }
+}
+
+/* Shared tech-chip used by Experience + Skills */
+.std-tech-chip {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(0.7rem, 1.2vw, 0.85rem);
+  letter-spacing: 1px;
+  padding: 4px 10px;
+  background: rgba(141, 246, 255, 0.12);
+  border: 1px solid var(--std-accent-cyan-mid);
+  color: var(--std-accent-cyan);
+  clip-path: var(--std-clip-chip);
+  list-style: none;
+}
+
+/* =============================================================================
+   Skills
+============================================================================= */
+.std-skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.std-skill-card {
+  padding: clamp(16px, 2vw, 22px);
+  background: var(--std-bg-card-alt);
+  clip-path: var(--std-clip-card);
+  box-shadow: inset 0 0 0 1px var(--std-border);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.std-skill-card-head {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--std-border);
+}
+
+.std-skill-index {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(0.95rem, 1.7vw, 1.15rem);
+  color: var(--std-accent-cyan);
+  letter-spacing: 1px;
+  line-height: 1;
+}
+
+.std-skill-category {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(1.05rem, 2.2vw, 1.4rem);
+  color: var(--std-text);
+  margin: 0;
+  letter-spacing: 1px;
+  line-height: 1;
+}
+
+.std-skill-count {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 0.9rem;
+  color: #06133b;
+  background: var(--std-accent-cyan);
+  padding: 3px 9px;
+  clip-path: polygon(0 0, 100% 0, calc(100% - 6px) 100%, 0 100%);
+  letter-spacing: 1px;
+  line-height: 1;
+}
+
+.std-skill-chips {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* =============================================================================
+   Education
+============================================================================= */
+.std-education-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.std-education-item {
+  padding: clamp(18px, 2.5vw, 24px);
+  background: var(--std-bg-card);
+  clip-path: var(--std-clip-card);
+  box-shadow: inset 0 0 0 1px var(--std-border);
+}
+
+.std-education-head {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: start;
+  gap: 16px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--std-border);
+  margin-bottom: 14px;
+}
+
+.std-education-index {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  color: var(--std-accent-cyan);
+  letter-spacing: 1px;
+  line-height: 1;
+}
+
+.std-education-title {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(1.05rem, 2.1vw, 1.35rem);
+  color: var(--std-text);
+  margin: 0;
+  letter-spacing: 1px;
+  line-height: 1.15;
+}
+
+.std-education-institution {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(0.9rem, 1.7vw, 1.1rem);
+  color: var(--std-accent-cyan);
+  margin: 4px 0 0;
+  letter-spacing: 1px;
+}
+
+.std-education-location {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-style: italic;
+  font-size: clamp(0.88rem, 1.5vw, 1rem);
+  color: var(--std-text-faint);
+  margin: 4px 0 0;
+}
+
+.std-education-status {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 0.9rem;
+  color: #06133b;
+  background: var(--std-accent-cyan);
+  padding: 5px 10px;
+  clip-path: polygon(0 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+  letter-spacing: 1px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.std-education-bullets {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.std-education-bullets li {
+  position: relative;
+  padding-left: 20px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(0.95rem, 1.7vw, 1.05rem);
+  color: var(--std-text);
+  line-height: 1.5;
+}
+
+.std-education-bullets li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--std-accent-red);
+  font-weight: 700;
+}
+
+@media (max-width: 560px) {
+  .std-education-head {
+    grid-template-columns: auto 1fr;
+    grid-template-areas:
+      "index body"
+      "status status";
+    row-gap: 10px;
+  }
+  .std-education-index  { grid-area: index; }
+  .std-education-head > div:nth-child(2) { grid-area: body; }
+  .std-education-status {
+    grid-area: status;
+    justify-self: start;
+  }
+}
+
+/* =============================================================================
+   Recognition
+============================================================================= */
+.std-recognition-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+.std-recognition-card {
+  padding: 14px;
+  background: var(--std-bg-card);
+  clip-path: var(--std-clip-card);
+  box-shadow: inset 0 0 0 1px var(--std-border);
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  font: inherit;
+}
+
+.std-recognition-card:hover,
+.std-recognition-card:focus-visible {
+  transform: translateY(-4px);
+  box-shadow:
+    inset 0 0 0 1px var(--std-border),
+    0 8px 0 rgba(214, 50, 50, 0.88);
+  outline: none;
+}
+
+.std-recognition-img {
+  width: 100%;
+  max-height: 260px;
+  object-fit: contain;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.std-recognition-caption {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-style: italic;
+  color: var(--std-text-dim);
+  font-size: clamp(0.95rem, 1.7vw, 1.1rem);
+  margin: 0;
+}
+
+.std-recognition-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(0, 0, 0, 0.88);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  cursor: pointer;
+}
+
+.std-recognition-modal-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  cursor: default;
+  max-width: 90vw;
+  max-height: 90vh;
+}
+
+.std-recognition-modal-content img {
+  max-width: 100%;
+  max-height: 70vh;
+  object-fit: contain;
+  border-radius: 6px;
+  box-shadow: 0 10px 48px rgba(0, 0, 0, 0.7);
+}
+
+.std-recognition-modal-caption {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-style: italic;
+  color: var(--std-text);
+  font-size: clamp(1rem, 1.8vw, 1.2rem);
+  margin: 0;
+  text-align: center;
+}
+
+.std-recognition-modal-close {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1rem;
+  letter-spacing: 2px;
+  background: var(--std-accent-red);
+  color: #ffffff;
+  border: none;
+  padding: 10px 24px;
+  cursor: pointer;
+  clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+  transition: background 0.18s ease;
+}
+
+.std-recognition-modal-close:hover {
+  background: var(--std-accent-red-soft);
+}
+
+/* =============================================================================
+   Contact
+============================================================================= */
+.std-contact-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.std-contact-card {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  background: var(--std-bg-card);
+  clip-path: var(--std-clip-card);
+  box-shadow: inset 0 0 0 1px var(--std-border);
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.std-contact-card:hover {
+  transform: translateX(4px);
+  background: var(--std-bg-card-alt);
+}
+
+.std-contact-icon {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--std-accent-cyan);
+  color: #08153f;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+  clip-path: polygon(6px 0, 100% 0, calc(100% - 6px) 100%, 0 100%);
+  flex-shrink: 0;
+}
+
+.std-contact-body { min-width: 0; }
+
+.std-contact-label {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(0.85rem, 1.6vw, 1rem);
+  letter-spacing: 3px;
+  color: var(--std-accent-cyan);
+  line-height: 1.1;
+}
+
+.std-contact-value {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(0.95rem, 1.7vw, 1.1rem);
+  color: var(--std-text);
+  word-break: break-word;
+}
+
+.std-contact-action {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(0.8rem, 1.4vw, 0.95rem);
+  color: #ffffff;
+  background: var(--std-accent-red);
+  padding: 6px 12px;
+  letter-spacing: 1px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 560px) {
+  .std-contact-card {
+    grid-template-columns: auto 1fr;
+    grid-template-areas:
+      "icon body"
+      "action action";
+    row-gap: 10px;
+  }
+  .std-contact-icon   { grid-area: icon; }
+  .std-contact-body   { grid-area: body; }
+  .std-contact-action {
+    grid-area: action;
+    justify-self: start;
+  }
+}
+
+/* =============================================================================
+   Footer
+============================================================================= */
+.page-standard-footer {
+  text-align: center;
+  padding: 32px 20px 48px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 0.85rem;
+  letter-spacing: 2px;
+  color: var(--std-text-faint);
+  border-top: 1px solid var(--std-border);
+}
+
+.page-standard-footer a {
+  color: var(--std-text-faint);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.page-standard-footer a:hover {
+  color: var(--std-accent-cyan);
+}
+
+/* =============================================================================
+   Reduced-motion overrides
+============================================================================= */
+@media (prefers-reduced-motion: reduce) {
+  .std-competency-card,
+  .std-recognition-card,
+  .std-contact-card {
+    transition: none;
+  }
+  .std-competency-card:hover,
+  .std-recognition-card:hover,
+  .std-recognition-card:focus-visible,
+  .std-contact-card:hover {
+    transform: none;
+  }
+}
