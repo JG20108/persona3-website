@@ -10,30 +10,64 @@ import icon3 from "@assets/icon3.png";
 import mainm from "@assets/mainm.jpeg";
 import mainm2 from "@assets/mainm2.jpeg";
 import mainf from "@assets/mainf.jpeg";
+import awardFeb2025 from "@assets/awardFeb2025.png";
+import awardJun2025 from "@assets/awardJun2025.png";
+import awardCometFeb2026 from "@assets/cometChampionFeb2026.png";
 
 const CHARS = [char1, char2, char3];
 const MAIN_IMAGES = [mainm, mainm2, mainf];
 
 const REVEAL_CONTENT = [
   {
-    upper: ["name moneybagg", "age:23"],
-    lower: "major: computer science",
+    type: "info",
+    upper: [
+      "José Guillén",
+      "Tech Lead & Senior Software Developer",
+      "Full Stack Developer — React, Node, TypeScript & more",
+      "Tech Lead driving architecture & engineering standards",
+    ],
+    lower: "Senior Software Developer · Honduras",
   },
   {
-    upper: [
-      "Cleopatra lived closer to the Moon landing than to the building of the pyramids.",
-      "Vikings kept cats on ships for pest control (and vibes).",
-      "In medieval Europe, animals could be put on trial for crimes",
+    type: "skills",
+    skills: [
+      {
+        title: "Full Stack Developer",
+        lines: [
+          "Proficient in both front-end and back-end technologies,",
+          "handling all aspects from UI design to database management.",
+        ],
+      },
+      {
+        title: "Adaptable",
+        lines: [
+          "Comfortable with rapidly changing technologies,",
+          "quickly learning and applying new concepts and tools.",
+        ],
+      },
+      {
+        title: "Team Player",
+        lines: [
+          "Known for effective communication and conflict resolution,",
+          "leading collaborative efforts across teams.",
+        ],
+      },
     ],
-    lower: "abbove is some history fun fact",
+    lower: "Core Competencies",
   },
   {
+    type: "recognition",
     upper: [
-      "Oxford University founding is older than the Aztec Empire.",
-      "The shortest war in history lasted 38–45 minutes (Britain vs Zanzibar).",
-      "Humans have been writing for ~5,000 years",
+      "Top Performer — February 2025",
+      "Best Team Player — June 2025",
+      "Comet Champion — February 2026",
     ],
-    lower: "yes it's a place holder",
+    images: [
+      { src: awardFeb2025,      caption: "Top Performer · Feb 2025" },
+      { src: awardJun2025,      caption: "Best Team Player · Jun 2025" },
+      { src: awardCometFeb2026, caption: "Comet Champion · Feb 2026" },
+    ],
+    lower: "Career Recognition & Awards",
   },
 ];
 
@@ -45,35 +79,33 @@ const ROLES = [
 
 const ITEMS = [
   {
-    id: "twitch", label: "ABOUT ME", handle: "@yourname", href: "https://twitch.tv/yourname", icon: "🎮", barIcon: icon1, bars: 1, newBars: [0], counts: ["56"],
-    links: ["twitch.tv/videos/2041837265"],
+    id: "about",      label: "ABOUT ME",   barIcon: icon1,
     stats: [
-      { tag: "FOL", value: "1.2K", color: "#9147ff" },
-      { tag: "VWR", value: "042",  color: "#bf94ff" },
+      { tag: "AGE", value: "23",   color: "#9147ff" },
+      { tag: "EXP", value: "3YR",  color: "#bf94ff" },
     ],
   },
   {
-    id: "instagram", label: "FUN FACT ABOUT ME", handle: "@yourhandle", href: "https://instagram.com/yourhandle", icon: "📷", barIcon: icon2, bars: 5, newBars: [1, 2], counts: ["3.4M", "2.5M", "676K", "412K", "198K"],
-    links: ["instagram.com/p/C4xQmRrNk2a", "instagram.com/p/C3wLpBsOj7f", "instagram.com/reel/C2vKoArMi6e", "instagram.com/p/C1uJnZqLh5d", "instagram.com/reel/C0tImYpKg4c"],
+    id: "experience", label: "CORE COMPETENCIES", barIcon: icon2,
     stats: [
-      { tag: "FOL", value: "3.4K", color: "#e1306c" },
-      { tag: "PST", value: "128",  color: "#f77737" },
+      { tag: "STK", value: "FS",   color: "#e1306c" },
+      { tag: "ROL", value: "TL",   color: "#f77737" },
     ],
   },
   {
-    id: "tiktok", label: "WIRED FACT ABOUT ME", handle: "@yourhandle", href: "https://tiktok.com/@yourhandle", icon: "🎵", barIcon: icon3, bars: 7, newBars: [0, 3, 5, 6], counts: ["5.1M", "3.7M", "2.2M", "1.4M", "831K", "490K", "217K"],
-    links: ["tiktok.com/@yourhandle/video/7318492016374859054", "tiktok.com/@yourhandle/video/7305837261940183342", "tiktok.com/@yourhandle/video/7291046385720348974", "tiktok.com/@yourhandle/video/7278392047163820334", "tiktok.com/@yourhandle/video/7264819203847165742", "tiktok.com/@yourhandle/video/7251047382916430126", "tiktok.com/@yourhandle/video/7237294018463851822"],
+    id: "awards",     label: "CAREER RECOGNITION & AWARDS", barIcon: icon3,
     stats: [
-      { tag: "FOL", value: "8.9K", color: "#00f2ea" },
-      { tag: "LKS", value: "52K",  color: "#ff0050" },
+      { tag: "AWD", value: "2",    color: "#00f2ea" },
+      { tag: "YR",  value: "2025", color: "#ff0050" },
     ],
   },
 ];
 
 export default function AboutMe() {
-  const [active, setActive]   = useState(0);
-  const [mounted, setMounted] = useState(false);
-  const [revealed, setRevealed] = useState(false);
+  const [active, setActive]       = useState(0);
+  const [mounted, setMounted]     = useState(false);
+  const [revealed, setRevealed]   = useState(false);
+  const [expandedAward, setExpandedAward] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -91,32 +123,68 @@ export default function AboutMe() {
         if (revealed) setRevealed(false);
         else navigate(-1);
       }
-      if (e.key === "Escape" || e.key === "Backspace") navigate(-1);
+      if (e.key === "Escape" || e.key === "Backspace") {
+        if (expandedAward) { setExpandedAward(null); return; }
+        navigate(-1);
+      }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [active, navigate, revealed]);
+  }, [active, navigate, revealed, expandedAward]);
 
   return (
     <div id="menu-screen">
       <video src={bgVideo} autoPlay loop muted playsInline />
       {revealed && <div key={`dim-${active}`} className="sc-dim" />}
       {revealed && (
-        <div key={`panel-${active}`} className={`sc-reveal-panel${mounted ? " mounted" : ""}`}>
-          <div className="sc-reveal-upper-bar">
-            {REVEAL_CONTENT[active].upper.map((line) => (
-              <div className="sc-reveal-upper-line" key={line}>{line}</div>
-            ))}
-          </div>
+        <div
+          key={`panel-${active}`}
+          className={`sc-reveal-panel${mounted ? " mounted" : ""}`}
+          style={{ pointerEvents: REVEAL_CONTENT[active]?.type === 'recognition' ? 'auto' : 'none' }}
+        >
+          {REVEAL_CONTENT[active].type === "info" && (
+            <div className="sc-reveal-upper-bar">
+              {REVEAL_CONTENT[active].upper.map((line) => (
+                <div className="sc-reveal-upper-line" key={line}>{line}</div>
+              ))}
+            </div>
+          )}
+          {REVEAL_CONTENT[active].type === "skills" && (
+            <div className="sc-reveal-skills">
+              {REVEAL_CONTENT[active].skills.map((skill) => (
+                <div className="sc-skill-entry" key={skill.title}>
+                  <div className="sc-skill-title">{skill.title}</div>
+                  {skill.lines.map((line) => (
+                    <div className="sc-skill-desc" key={line}>{line}</div>
+                  ))}
+                </div>
+              ))}
+            </div>
+          )}
+          {REVEAL_CONTENT[active].type === "recognition" && (
+            <div className="sc-reveal-recognition">
+              {REVEAL_CONTENT[active].images.map((img) => (
+                <div
+                  className="sc-award-col"
+                  key={img.caption}
+                  style={{ pointerEvents: 'all' }}
+                  onClick={() => setExpandedAward(img)}
+                >
+                  <img className="sc-award-img" src={img.src} alt={img.caption} />
+                  <div className="sc-award-caption">{img.caption}</div>
+                </div>
+              ))}
+            </div>
+          )}
           <div className="sc-reveal-lower-bar">{REVEAL_CONTENT[active].lower}</div>
         </div>
       )}
       {revealed && (
         <div key={`nav-${active}`} className="sc-right-nav">
           <span className="sc-nav-arrow left">◄</span>
-          <span className="sc-nav-btn">LB</span>
+          <span className="sc-nav-btn">↑</span>
           <span className="sc-nav-dot" />
-          <span className="sc-nav-btn">RB</span>
+          <span className="sc-nav-btn">↓</span>
           <span className="sc-nav-arrow right">►</span>
         </div>
       )}
@@ -127,6 +195,14 @@ export default function AboutMe() {
             src={MAIN_IMAGES[active]}
             alt=""
           />
+        </div>
+      )}
+      {expandedAward && (
+        <div className="sc-award-modal" onClick={() => setExpandedAward(null)}>
+          <div className="sc-award-modal-content" onClick={(e) => e.stopPropagation()}>
+            <img src={expandedAward.src} alt={expandedAward.caption} />
+            <div className="sc-award-modal-caption">{expandedAward.caption}</div>
+          </div>
         </div>
       )}
       <style>{`
@@ -280,7 +356,7 @@ export default function AboutMe() {
         .sc-reveal-upper-line {
           font-family: 'Montserrat', sans-serif;
           font-weight: 300;
-          font-size: 20px;
+          font-size: 26px;
           letter-spacing: 0.5px;
           line-height: 1.15;
         }
@@ -609,6 +685,134 @@ export default function AboutMe() {
           border-radius: 3px;
           padding: 1px 6px; font-size: 11px;
         }
+
+        /* ── Skills panel (Experience bar) ── */
+        .sc-reveal-skills {
+          position: absolute;
+          top: 10%;
+          left: 0%;
+          width: 100%;
+          height: 44%;
+          background: rgba(0, 0, 0, 0.92);
+          clip-path: polygon(0 0, 100% 0, calc(100% - 22px) 100%, 0 100%);
+          box-shadow: 0 0 0 1px rgba(255,255,255,0.06);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 22px;
+          color: #fff;
+          text-align: center;
+        }
+        .sc-skill-entry {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 4px;
+        }
+        .sc-skill-title {
+          font-family: 'Montserrat', sans-serif;
+          font-weight: 700;
+          font-size: 22px;
+          letter-spacing: 0.5px;
+          line-height: 1.15;
+          color: #e03d31;
+        }
+        .sc-skill-desc {
+          font-family: 'Montserrat', sans-serif;
+          font-weight: 300;
+          font-size: 17px;
+          letter-spacing: 0.5px;
+          line-height: 1.15;
+          color: rgba(255, 255, 255, 0.85);
+        }
+
+        /* ── Recognition panel (Awards bar) ── */
+        .sc-reveal-recognition {
+          position: absolute;
+          top: 10%;
+          left: 0%;
+          width: 100%;
+          height: 44%;
+          background: rgba(0, 0, 0, 0.92);
+          clip-path: polygon(0 0, 100% 0, calc(100% - 22px) 100%, 0 100%);
+          box-shadow: 0 0 0 1px rgba(255,255,255,0.06);
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: center;
+          gap: 28px;
+          color: #fff;
+          text-align: center;
+        }
+        .sc-award-col {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 10px;
+          cursor: pointer;
+          pointer-events: all;
+          transition: transform 0.2s ease;
+        }
+        .sc-award-col:hover {
+          transform: scale(1.04);
+        }
+        .sc-award-img {
+          height: 200px;
+          width: auto;
+          max-width: 260px;
+          object-fit: contain;
+          border-radius: 4px;
+          box-shadow: 0 2px 12px rgba(0,0,0,0.5);
+          transition: box-shadow 0.2s ease;
+        }
+        .sc-award-col:hover .sc-award-img {
+          box-shadow: 0 4px 20px rgba(196, 0, 26, 0.5);
+        }
+        .sc-award-caption {
+          font-family: 'Montserrat', sans-serif;
+          font-weight: 300;
+          font-size: 14px;
+          letter-spacing: 0.5px;
+          line-height: 1.15;
+          color: rgba(255,255,255,0.85);
+        }
+
+        /* ── Award modal ── */
+        .sc-award-modal {
+          position: fixed;
+          inset: 0;
+          z-index: 200;
+          background: rgba(0, 0, 0, 0.88);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          animation: sc-dim-in 0.22s ease-out;
+        }
+        .sc-award-modal-content {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 18px;
+          cursor: default;
+          pointer-events: all;
+          max-width: 80vw;
+        }
+        .sc-award-modal-content img {
+          max-width: 100%;
+          max-height: 72vh;
+          object-fit: contain;
+          border-radius: 6px;
+          box-shadow: 0 8px 48px rgba(0,0,0,0.7);
+        }
+        .sc-award-modal-caption {
+          font-family: 'Montserrat', sans-serif;
+          font-weight: 300;
+          font-size: 20px;
+          letter-spacing: 0.5px;
+          color: rgba(255,255,255,0.85);
+        }
       `}</style>
 
       <div className="sc-root" role="navigation">
@@ -616,12 +820,7 @@ export default function AboutMe() {
           <div
             key={item.id}
             className={`sc-bar-outer${active === i ? " active" : ""}${mounted ? " mounted" : ""}`}
-            onClick={() => {
-              setActive(i);
-            }}
-            onMouseEnter={() => {
-              setActive(i);
-            }}
+            onClick={() => setActive(i)}
           >
             <div className="sc-bar-red" />
             <div className="sc-bar">
