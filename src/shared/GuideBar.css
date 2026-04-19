@@ -1,0 +1,95 @@
+@keyframes guide-bar-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.guide-bar {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  z-index: 50;
+  display: flex;
+  align-items: stretch;
+  background: rgba(6, 10, 22, 0.92);
+  border-top: 2px solid #00b4ff;
+  padding: 0;
+  opacity: 0;
+  pointer-events: none;
+  clip-path: polygon(12px 0%, 100% 0%, 100% 100%, 0% 100%);
+}
+.guide-bar.mounted {
+  animation: guide-bar-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.guide-bar-label {
+  display: flex;
+  align-items: center;
+  padding: 0 14px 0 20px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: rgba(0, 180, 255, 0.7);
+  border-right: 1px solid rgba(0, 180, 255, 0.18);
+}
+
+.guide-bar-actions {
+  display: flex;
+  align-items: center;
+}
+
+.guide-bar-action {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 16px;
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
+}
+.guide-bar-action:last-child { border-right: none; }
+
+.guide-bar-badge {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0;
+  flex-shrink: 0;
+  line-height: 1;
+}
+.guide-bar-badge--nav {
+  background: rgba(0, 180, 255, 0.18);
+  border: 2px solid rgba(0, 180, 255, 0.6);
+  color: #00b4ff;
+  border-radius: 6px;
+  width: auto;
+  padding: 0 6px;
+  height: 24px;
+  font-size: 12px;
+}
+.guide-bar-badge--confirm {
+  background: #2a7a2a;
+  border: 2px solid #5bc85b;
+  color: #a8ffa8;
+}
+.guide-bar-badge--back {
+  background: #7a1a1a;
+  border: 2px solid #e03d31;
+  color: #ffaaaa;
+  border-radius: 6px;
+  width: auto;
+  padding: 0 6px;
+  height: 24px;
+  font-size: 11px;
+}
+
+.guide-bar-action-text {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 14px;
+  letter-spacing: 2px;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1;
+}
